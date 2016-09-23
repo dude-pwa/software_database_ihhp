@@ -14,3 +14,13 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/kblicodes', 'KblicodesController@index');
+Route::get('/kblicodes/create', 'KblicodesController@create');
+Route::get('/kblicodes/{id}/edit', 'KblicodesController@edit');
+Route::post('/kblicodes', 'KblicodesController@store');
+Route::patch('/kblicodes/{id}', 'KblicodesController@update');
+Route::delete('/kblicodes/{id}', [
+	'uses'=>'KblicodesController@destroy',
+	'as'=>'kblicodes.destroy'
+]);
