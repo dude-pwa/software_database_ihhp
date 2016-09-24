@@ -24,3 +24,5 @@ Route::delete('/kblicodes/{id}', [
 	'uses'=>'KblicodesController@destroy',
 	'as'=>'kblicodes.destroy'
 ]);
+Route::get('kblicodes/import', 'KblicodesController@getImport');
+Route::post('kblicodes', 'KblicodesController@postImport');

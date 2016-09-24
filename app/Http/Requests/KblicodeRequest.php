@@ -32,7 +32,7 @@ class KblicodeRequest extends Request
             case 'POST':
                 {
                     return[
-                        'kbli' => 'required|unique:kblicodes',
+                        'kbli' => 'required',
                     ];
                 }
             case 'PUT':

@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Kblicode extends Model
 {
-    protected $fillable = ['kbli'];
+    protected $fillable = ['kblicode', 'hscode'];
 }

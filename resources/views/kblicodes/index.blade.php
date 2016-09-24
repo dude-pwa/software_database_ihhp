@@ -1,7 +1,8 @@
 @extends('app')
 
 @section('content')
-	<a href="/kblicodes/create" class="btn btn-primary">Tambah Daftar KBLI</a>
+	<br>
+	<a href="/kblicodes/create" class="btn btn-primary">Tambah Daftar KBLI</a> | <a href="/kblicodes/import" class="btn btn-primary">Tambah Daftar Dari File Excel</a>
 	<br><br>
 	<a href="/" class="btn btn-warning">Kembali Ke Menu Utama</a>
 	<div class="panel panel-success">
@@ -10,13 +11,15 @@
 			<tr>
 				<th class="col-md-1">No.</th>
 				<th class="col-md-2">Kode KBLI</th>
+				<th class="col-md-2">Kode HS</th>
 				<th colspan="2" class="center">Action</th>
 			</tr>
 			<?php $i = 0; ?>
 				@foreach($kblicodes as $kblicode)
 					<tr>
 						<td>{{($kblicodes->currentpage()-1)*$kblicodes->perpage()+1 + $i}}</td>
-						<td>{{ strtoupper($kblicode->kbli) }}</td>
+						<td>{{ strtoupper($kblicode->kblicode) }}</td>
+						<td>{{ strtoupper($kblicode->hscode) }}</td>
 						<td class="col-md-1" align="right">
 							<a href="/kblicodes/{{$kblicode->id}}/edit" class="btn btn-xs btn-info">Edit</a> 
 						</td>

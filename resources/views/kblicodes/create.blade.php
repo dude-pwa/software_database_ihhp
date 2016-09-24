@@ -8,7 +8,7 @@
 			
 
 			{!! Form::open(['url' => 'kblicodes']) !!}
-				@include('kblicodes.form', ['submitButton'=>'Simpan'])
+				@include('kblicodes.form')
 			{!! Form::close() !!}
 		</div>
 	</div>

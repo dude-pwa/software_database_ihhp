@@ -14,7 +14,8 @@ class CreateKblicodesTable extends Migration
     {
         Schema::create('kblicodes', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('kbli')->unique();
+            $table->string('kblicode');
+            $table->string('hscode');
             $table->timestamps();
         });
     }

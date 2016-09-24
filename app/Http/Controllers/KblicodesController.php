@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests\KblicodeRequest;
 use App\Kblicode;
 use Session;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Input;
+
 
 class KblicodesController extends Controller
 {
@@ -17,9 +20,24 @@ class KblicodesController extends Controller
      */
     public function index()
     {
-        $kblicodes = Kblicode::orderBy('kbli');
+        $kblicodes = Kblicode::orderBy('kblicode');
         $kblicodes = $kblicodes->paginate();
         return view('kblicodes.index', compact('kblicodes'));
+    }
+
+    public function getImport(){
+        return view('kblicodes.import');
+    }
+
+    public function postImport(){
+        Excel::load(Input::file('file'), function($reader){
+            $reader->each(function($sheet){
+                foreach ($sheet->toArray() as $row) {
+                    Kblicode::firstOrCreate($sheet->toArray());
+                }
+            });
+        });
+        return redirect('kblicodes');
     }
 
     /**
