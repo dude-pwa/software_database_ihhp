@@ -45,6 +45,10 @@
 			<div class="alert alert-success">
 				{{Session::get('message')}}
 			</div>
+		@elseif(Session::has('error'))
+			<div class="alert alert-danger">
+				{{Session::get('error')}}
+			</div>
 		@endif
 
 		@if (!Auth::guest())
@@ -56,7 +60,7 @@
 	</div>
 	
 	<script>
-		$('div.alert').delay(3000).slideUp(300);
+		$('div.alert').delay(25000).slideUp(300);
     $(".delete").on("submit", function(){
         return confirm("Are you sure?");
     });

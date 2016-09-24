@@ -32,14 +32,16 @@ class KblicodeRequest extends Request
             case 'POST':
                 {
                     return[
-                        'kbli' => 'required',
+                        'kblicode' => 'required',
+                        'hscode' => 'required'
                     ];
                 }
             case 'PUT':
             case 'PATCH':
                 {
                     return[
-                        'kbli' => 'required',
+                        'kblicode' => 'required',
+                        'hscode' => 'required'
                     ];
                 }
             default:break;

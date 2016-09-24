@@ -9,6 +9,7 @@ use App\Kblicode;
 use Session;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Validator;
 
 
 class KblicodesController extends Controller
@@ -30,14 +31,30 @@ class KblicodesController extends Controller
     }
 
     public function postImport(){
-        Excel::load(Input::file('file'), function($reader){
-            $reader->each(function($sheet){
-                foreach ($sheet->toArray() as $row) {
-                    Kblicode::firstOrCreate($sheet->toArray());
-                }
-            });
-        });
-        return redirect('kblicodes');
+       $rules = ['file' => 'required'];
+       $validator = Validator::make(Input::all(), $rules);
+       // process the form
+       if ($validator->fails()) 
+       {
+           return redirect('kblicodes/import')->withErrors($validator);
+       }else{
+            try{
+                Excel::load(Input::file('file'), function($reader){
+                    $reader->each(function($sheet){
+                        foreach ($sheet->toArray() as $row) {
+                            Kblicode::firstOrCreate($sheet->toArray());
+                        }
+                    });
+                });
+                Session::flash('message', 'Data KBLI berhasil di input via file excel');
+                return redirect('kblicodes');
+            }catch(\Exception $e){
+                // Session::flash('error', $e->getMessage() . 'Kolom kblicode dan hscode tidak boleh kosong');
+                Session::flash('error', 'Kolom kblicode dan hscode tidak boleh kosong');
+                return redirect('kblicodes');
+            }
+        }
+        
     }
 
     /**
