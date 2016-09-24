@@ -52,3 +52,16 @@ Route::delete('/harbors/{id}', [
 ]);
 Route::get('harbors/import', 'HarborsController@getImport');
 Route::post('harbors/import', 'HarborsController@postImport');
+
+// resource export
+Route::get('/exports', 'ExportsController@index');
+Route::get('/exports/create', 'ExportsController@create');
+Route::get('/exports/{id}/edit', 'ExportsController@edit');
+Route::post('/exports', 'ExportsController@store');
+Route::patch('/exports/{id}', 'ExportsController@update');
+Route::delete('/exports/{id}', [
+	'uses'=>'ExportsController@destroy',
+	'as'=>'exports.destroy'
+]);
+Route::get('exports/import', 'ExportsController@getImport');
+Route::post('exports/import', 'ExportsController@postImport');
