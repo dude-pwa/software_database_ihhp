@@ -39,3 +39,16 @@ Route::delete('/countries/{id}', [
 ]);
 Route::get('countries/import', 'CountriesController@getImport');
 Route::post('countries/import', 'CountriesController@postImport');
+
+//resource pelabuhan
+Route::get('/harbors', 'HarborsController@index');
+Route::get('/harbors/create', 'HarborsController@create');
+Route::get('/harbors/{id}/edit', 'HarborsController@edit');
+Route::post('/harbors', 'HarborsController@store');
+Route::patch('/harbors/{id}', 'HarborsController@update');
+Route::delete('/harbors/{id}', [
+	'uses'=>'HarborsController@destroy',
+	'as'=>'harbors.destroy'
+]);
+Route::get('harbors/import', 'HarborsController@getImport');
+Route::post('harbors/import', 'HarborsController@postImport');
