@@ -25,4 +25,17 @@ Route::delete('/kblicodes/{id}', [
 	'as'=>'kblicodes.destroy'
 ]);
 Route::get('kblicodes/import', 'KblicodesController@getImport');
-Route::post('kblicodes', 'KblicodesController@postImport');
+Route::post('kblicodes/import', 'KblicodesController@postImport');
+
+// resource country
+Route::get('/countries', 'CountriesController@index');
+Route::get('/countries/create', 'CountriesController@create');
+Route::get('/countries/{id}/edit', 'CountriesController@edit');
+Route::post('/countries', 'CountriesController@store');
+Route::patch('/countries/{id}', 'CountriesController@update');
+Route::delete('/countries/{id}', [
+	'uses'=>'CountriesController@destroy',
+	'as'=>'countries.destroy'
+]);
+Route::get('countries/import', 'CountriesController@getImport');
+Route::post('countries/import', 'CountriesController@postImport');
