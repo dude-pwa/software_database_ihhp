@@ -65,3 +65,16 @@ Route::delete('/exports/{id}', [
 ]);
 Route::get('exports/import', 'ExportsController@getImport');
 Route::post('exports/import', 'ExportsController@postImport');
+
+// resource import
+Route::get('/imports', 'ImportsController@index');
+Route::get('/imports/create', 'ImportsController@create');
+Route::get('/imports/{id}/edit', 'ImportsController@edit');
+Route::post('/imports', 'ImportsController@store');
+Route::patch('/imports/{id}', 'ImportsController@update');
+Route::delete('/imports/{id}', [
+	'uses'=>'ImportsController@destroy',
+	'as'=>'imports.destroy'
+]);
+Route::get('imports/import', 'ImportsController@getImport');
+Route::post('imports/import', 'ImportsController@postImport');
