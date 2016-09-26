@@ -2,7 +2,7 @@
 
 @section('content')
 	<div class="panel panel-success">
-		<h1 class="panel-heading">Tambah Daftar Export</h1>
+		<h1 class="panel-heading">Tambah Daftar Import</h1>
 		<div class="panel-form panel-content">
 			{{-- {!! Form::open(['url' => 'kblicodes', 'files' => true]) !!}
 				<div class="input-group">
@@ -12,7 +12,7 @@
 				{!! Form::submit('Import', ['class' => 'btn btn-primary']) !!}
 			{!! Form::close() !!} --}}
 
-			<form action="{{action('ExportsController@postImport')}}" method="POST" enctype="multipart/form-data">
+			<form action="{{action('ImportsController@postImport')}}" method="POST" enctype="multipart/form-data">
 				<input type="hidden" name="_token" value="{!! csrf_token() !!}">
 				<label for="file">Pilih File: </label>
 				<input type="file" name="file"><br><br>

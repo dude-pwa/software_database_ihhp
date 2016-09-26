@@ -5,8 +5,9 @@
 	<title>Software Database IHHP</title>
 	<link rel="stylesheet" href="{{ URL::to('/src/css/bootstrap.min.css') }}">
 	<link rel="stylesheet" href="{{URL::to('/src/css/custom.css')}}">
-	<script src="{{URL::to('/src/js/bootstrap.min.js')}}"></script>
 	<script src="{{URL::to('/src/js/jquery-3.1.0.min.js')}}"></script>
+	<script src="{{URL::to('/src/js/bootstrap.min.js')}}"></script>
+	
 
 	{{-- <div class="navbar navbar-default navbar-static-top">
 	  <div class="container">

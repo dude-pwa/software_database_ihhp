@@ -10,10 +10,8 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'PagesController@index');
+Route::get('/filter/{komoditi?}/{kbli?}/{hs?}/{th?}/{cn?}', 'PagesController@filter');
 
 Route::get('/kblicodes', 'KblicodesController@index');
 Route::get('/kblicodes/create', 'KblicodesController@create');
@@ -78,3 +76,9 @@ Route::delete('/imports/{id}', [
 ]);
 Route::get('imports/import', 'ImportsController@getImport');
 Route::post('imports/import', 'ImportsController@postImport');
+
+// pages controller
+// Route::get('/?kbli={kbli}', [
+// 	'uses'=>'PagesController@selectkbli',
+// 	'as'=>'select_kbli'
+// ]);
