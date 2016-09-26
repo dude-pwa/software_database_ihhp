@@ -90,3 +90,6 @@ Route::post('imports/import', 'ImportsController@postImport');
 // 	'uses'=>'PagesController@selectkbli',
 // 	'as'=>'select_kbli'
 // ]);
+Route::auth();
+
+Route::get('/home', 'HomeController@index');

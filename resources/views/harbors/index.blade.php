@@ -20,6 +20,8 @@
 						<td>{{($harbors->currentpage()-1)*$harbors->perpage()+1 + $i}}</td>
 						<td>{{ strtoupper($harbor->kode_pelabuhan) }}</td>
 						<td>{{ strtoupper($harbor->nama_pelabuhan) }}</td>
+
+						@if (!Auth::guest())
 						<td class="col-md-1" align="right">
 							<a href="/harbors/{{$harbor->id}}/edit" class="btn btn-xs btn-info">Edit</a> 
 						</td>
@@ -28,6 +30,7 @@
 							{!! Form::submit('Delete', ['class'=>'btn btn-xs btn-danger']) !!}
 							{!!Form::close()!!}
 						</td>
+						@endif
 					</tr>
 				<?php $i += 1 ?>
 				@endforeach

@@ -116,9 +116,12 @@
             <h1><a href="/harbors" class="btn btn-primary col-md-5">Daftar Pelabuhan</a></h1><br>
 
             <br><br>
-            {{-- <h1><a href="{{ url('/logout') }}" class="col-md-1 col-md-offset-4 btn btn-danger "><i class="fa fa-btn fa-sign-out"></i>Exit</a></h1> --}}
+            @if (Auth::guest())
+                <h1><a href="/login" class="col-md-1 col-md-offset-4 btn btn-success">Login</a></h1>
+            @else
+            <h1><a href="{{ url('/logout') }}" class="col-md-1 col-md-offset-4 btn btn-danger "><i class="fa fa-btn fa-sign-out"></i>Logout</a></h1>
         </div>
-        {{-- @endif --}}
+            @endif
     </div>
 </div>
 @endsection

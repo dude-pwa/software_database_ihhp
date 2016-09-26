@@ -20,6 +20,8 @@
 						<td>{{($kblicodes->currentpage()-1)*$kblicodes->perpage()+1 + $i}}</td>
 						<td>{{ strtoupper($kblicode->kblicode) }}</td>
 						<td>{{ strtoupper($kblicode->hscode) }}</td>
+
+						@if (!Auth::guest())
 						<td class="col-md-1" align="right">
 							<a href="/kblicodes/{{$kblicode->id}}/edit" class="btn btn-xs btn-info">Edit</a> 
 						</td>
@@ -28,6 +30,7 @@
 							{!! Form::submit('Delete', ['class'=>'btn btn-xs btn-danger']) !!}
 							{!!Form::close()!!}
 						</td>
+						@endif
 					</tr>
 				<?php $i += 1 ?>
 				@endforeach

@@ -34,6 +34,8 @@
 						<td>{{ strtoupper($import->nama_pelabuhan) }}</td>
 						<td>{{ strtoupper($import->berat_bersih) }}</td>
 						<td>{{ strtoupper($import->nilai) }}</td>
+
+						@if (!Auth::guest())
 						<td class="col-md-1" align="right">
 							<a href="/imports/{{$import->id}}/edit" class="btn btn-xs btn-info">Edit</a> 
 						</td>
@@ -42,6 +44,7 @@
 							{!! Form::submit('Delete', ['class'=>'btn btn-xs btn-danger']) !!}
 							{!!Form::close()!!}
 						</td>
+						@endif
 					</tr>
 				<?php $i += 1 ?>
 				@endforeach
