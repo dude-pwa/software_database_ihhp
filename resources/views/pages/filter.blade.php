@@ -13,14 +13,18 @@
             <h1 class="panel-heading">Filter Data Komoditi Per HS</h1>
             <br>
                 <?php 
+                    $current_route = \Request::route()->getName();
                     $komoditi_default = 'Pilih Data Komoditi';
                     $kbli_default = 'Pilih Kode KBLI'; 
                     $hs_default = 'Pilih Kode HS'; 
                     $th_default = 'Pilih Tahun'; 
                     $cn_default = 'Pilih Negara';
-                    if($komoditi != null){
-                        $komoditi_default = $komoditi;
-                    }if($kbli != null){
+                    if($current_route == 'filter.export'){
+                        $komoditi_default = 'export';
+                    }elseif($current_route == 'filter.import'){
+                      $komoditi_default = 'import';
+                    }
+                    if($kbli != null){
                         $kbli_default = $kbli;
                     }if($hs != null){
                         $hs_default = $hs;
@@ -42,7 +46,7 @@
                 {!! Form::select('kblicode', $kblicodes, null, array('class'=>'', 
                     'placeholder'=>$kbli_default, 
                     'id'=>'kbli',
-                    'onchange'=>"window.open('http://localhost:8080/filter/$komoditi/'+this.options[ this.selectedIndex ].value, '_self')"
+                    'onchange'=>"window.open('http://localhost:8080/filter/$komoditi_default/'+this.options[ this.selectedIndex ].value, '_self')"
                     )) !!}
 
                 @if($kbli != null)
@@ -50,7 +54,7 @@
                     'class'=>'', 
                     'placeholder'=>$hs_default, 
                     'id'=>'hs',
-                    'onchange'=>"window.open('http://localhost:8080/filter/$komoditi/$kbli/'+this.options[ this.selectedIndex ].value, '_self')"
+                    'onchange'=>"window.open('http://localhost:8080/filter/$komoditi_default/$kbli/'+this.options[ this.selectedIndex ].value, '_self')"
                     )) !!}
                 @endif
 
@@ -59,7 +63,7 @@
                     'class'=>'', 
                     'placeholder'=>$th_default, 
                     'id'=>'tahun',
-                    'onchange'=>"window.open('http://localhost:8080/filter/$komoditi/$kbli/$hs/'+this.options[ this.selectedIndex ].value, '_self')"
+                    'onchange'=>"window.open('http://localhost:8080/filter/$komoditi_default/$kbli/$hs/'+this.options[ this.selectedIndex ].value, '_self')"
                     )) !!}
                 @endif
 
@@ -68,7 +72,7 @@
                     'class'=>'', 
                     'placeholder'=>$cn_default, 
                     'id'=>'negara',
-                    'onchange'=>"window.open('http://localhost:8080/filter/$komoditi/$kbli/$hs/$th/'+this.options[ this.selectedIndex ].value, '_self')"
+                    'onchange'=>"window.open('http://localhost:8080/filter/$komoditi_default/$kbli/$hs/$th/'+this.options[ this.selectedIndex ].value, '_self')"
                     )) !!}
                 @endif
 
@@ -92,10 +96,10 @@
                 <br><br>
         </div>
     </div>
-    @if($komoditi!=null && $kbli!=null && $hs!=null && $th!=null && $cn!=null)
+    @if($kbli!=null && $hs!=null && $th!=null && $cn!=null)
     <div class="row">
         <div class="panel panel-success">
-            <h1 class="panel-heading">Daftar Komoditi {{ucfirst($komoditi)}}</h1>
+            <h1 class="panel-heading">Daftar Komoditi {{ucfirst($komoditi_default)}}</h1>
             <table class="table table-striped small">
                 <tr>
                   <th class="col-md-1">No.</th>
@@ -111,30 +115,64 @@
                   <th colspan="2" class="center">Action</th>
                 </tr>
                 <?php $i = 0; ?>
-                @foreach($exports as $export)
+                @if($komoditi_default == 'import')
+                @foreach($imports as $import)
                   <tr>
-                    <td>{{($exports->currentpage()-1)*$exports->perpage()+1 + $i}}</td>
-                    <td>{{ strtoupper($export->tahun) }}</td>
-                    <td>{{ strtoupper($export->hscode) }}</td>
-                    <td>{{ strtoupper($export->nama_item) }}</td>
-                    <td>{{ strtoupper($export->kode_negara) }}</td>
-                    <td>{{ strtoupper($export->nama_negara) }}</td>
-                    <td>{{ strtoupper($export->kode_pelabuhan) }}</td>
-                    <td>{{ strtoupper($export->nama_pelabuhan) }}</td>
-                    <td>{{ strtoupper($export->berat_bersih) }}</td>
-                    <td>{{ strtoupper($export->nilai) }}</td>
+                    <td>{{($imports->currentpage()-1)*$imports->perpage()+1 + $i}}</td>
+                    <td>{{ strtoupper($import->tahun) }}</td>
+                    <td>{{ strtoupper($import->hscode) }}</td>
+                    <td>{{ strtoupper($import->nama_item) }}</td>
+                    <td>{{ strtoupper($import->kode_negara) }}</td>
+                    <td>{{ strtoupper($import->nama_negara) }}</td>
+                    <td>{{ strtoupper($import->kode_pelabuhan) }}</td>
+                    <td>{{ strtoupper($import->nama_pelabuhan) }}</td>
+                    <td>{{ strtoupper($import->berat_bersih) }}</td>
+                    <td>{{ strtoupper($import->nilai) }}</td>
                     <td class="col-md-1" align="right">
-                      <a href="/exports/{{$export->id}}/edit" class="btn btn-xs btn-info">Edit</a> 
+                      <a href="/exports/{{$import->id}}/edit" class="btn btn-xs btn-info">Edit</a> 
                     </td>
                     <td class="col-md-1 delete" align="left">
-                      {!! Form::open(['method'=>'delete', 'route'=>['exports.destroy', $export->id]]) !!}
+                      {!! Form::open(['method'=>'delete', 'route'=>['exports.destroy', $import->id]]) !!}
                       {!! Form::submit('Delete', ['class'=>'btn btn-xs btn-danger']) !!}
                       {!!Form::close()!!}
                     </td>
                   </tr>
                   <?php $i += 1; ?>
                 @endforeach
+                @elseif($komoditi_default == 'export')
+                  @foreach($exports as $export)
+                    <tr>
+                      <td>{{($exports->currentpage()-1)*$exports->perpage()+1 + $i}}</td>
+                      <td>{{ strtoupper($export->tahun) }}</td>
+                      <td>{{ strtoupper($export->hscode) }}</td>
+                      <td>{{ strtoupper($export->nama_item) }}</td>
+                      <td>{{ strtoupper($export->kode_negara) }}</td>
+                      <td>{{ strtoupper($export->nama_negara) }}</td>
+                      <td>{{ strtoupper($export->kode_pelabuhan) }}</td>
+                      <td>{{ strtoupper($export->nama_pelabuhan) }}</td>
+                      <td>{{ strtoupper($export->berat_bersih) }}</td>
+                      <td>{{ strtoupper($export->nilai) }}</td>
+                      <td class="col-md-1" align="right">
+                        <a href="/exports/{{$export->id}}/edit" class="btn btn-xs btn-info">Edit</a> 
+                      </td>
+                      <td class="col-md-1 delete" align="left">
+                        {!! Form::open(['method'=>'delete', 'route'=>['exports.destroy', $export->id]]) !!}
+                        {!! Form::submit('Delete', ['class'=>'btn btn-xs btn-danger']) !!}
+                        {!!Form::close()!!}
+                      </td>
+                    </tr>
+                    <?php $i += 1; ?>
+                  @endforeach
+                @endif
             </table>
+            <br>
+            <div class="center">
+            @if($komoditi_default == 'import')
+              {{$imports->links()}}
+            @elseif($komoditi_default == 'export')
+              {{$exports->links()}}
+            @endif
+            </div>
         </div>
     </div>
     @endif

@@ -11,7 +11,15 @@
 |
 */
 Route::get('/', 'PagesController@index');
-Route::get('/filter/{komoditi?}/{kbli?}/{hs?}/{th?}/{cn?}', 'PagesController@filter');
+// Route::get('/filter/{komoditi?}/{kbli?}/{hs?}/{th?}/{cn?}', 'PagesController@filter');
+Route::get('/filter/export/{kbli?}/{hs?}/{th?}/{cn?}', [
+	'uses'=>'PagesController@filterExport',
+	'as'=>'filter.export'
+	]);
+Route::get('/filter/import/{kbli?}/{hs?}/{th?}/{cn?}', [
+	'uses'=>'PagesController@filterImport',
+	'as'=>'filter.import'
+	]);
 
 Route::get('/kblicodes', 'KblicodesController@index');
 Route::get('/kblicodes/create', 'KblicodesController@create');
