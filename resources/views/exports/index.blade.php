@@ -7,7 +7,7 @@
 	<a href="/" class="btn btn-warning">Kembali Ke Menu Utama</a>
 	<div class="panel panel-success">
 		<h1 class="panel-heading">Daftar Export</h1>
-		<table class="table table-striped">
+		<table class="table table-striped small">
 			<tr>
 				<th class="col-md-1">No.</th>
 				<th class="col-md-2">Tahun</th>

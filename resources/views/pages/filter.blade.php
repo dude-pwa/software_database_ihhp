@@ -9,9 +9,8 @@
 </style> --}}
 <div class="container">
     <div class="row">
-        <br><br>
         <div class="panel panel-success">
-            <h1 class="panel-heading">Pilih Data Komoditi</h1>
+            <h1 class="panel-heading">Filter Data Komoditi Per HS</h1>
             <br>
                 <?php 
                     $komoditi_default = 'Pilih Data Komoditi';
@@ -97,18 +96,18 @@
     <div class="row">
         <div class="panel panel-success">
             <h1 class="panel-heading">Daftar Komoditi {{ucfirst($komoditi)}}</h1>
-            <table class="table table-striped">
+            <table class="table table-striped small">
                 <tr>
-                  <th class="col-xs-1">No.</th>
-                  <th class="col-xs-2">Tahun</th>
-                  <th class="col-xs-2">Kode HS</th>
-                  <th class="col-xs-2">Nama Item</th>
-                  <th class="col-xs-2">Kode Negara</th>
-                  <th class="col-xs-2">Nama Negara</th>
-                  <th class="col-xs-2">Kode Pelabuhan</th>
-                  <th class="col-xs-2">Nama Pelabuhan</th>
-                  <th class="col-xs-2">Berat Bersih</th>
-                  <th class="col-xs-2">Nilai</th>
+                  <th class="col-md-1">No.</th>
+                  <th class="col-md-2">Tahun</th>
+                  <th class="col-md-2">Kode HS</th>
+                  <th class="col-md-2">Nama Item</th>
+                  <th class="col-md-2">Kode Negara</th>
+                  <th class="col-md-2">Nama Negara</th>
+                  <th class="col-md-2">Kode Pelabuhan</th>
+                  <th class="col-md-2">Nama Pelabuhan</th>
+                  <th class="col-md-2">Berat Bersih</th>
+                  <th class="col-md-2">Nilai</th>
                   <th colspan="2" class="center">Action</th>
                 </tr>
                 <?php $i = 0; ?>
@@ -124,10 +123,10 @@
                     <td>{{ strtoupper($export->nama_pelabuhan) }}</td>
                     <td>{{ strtoupper($export->berat_bersih) }}</td>
                     <td>{{ strtoupper($export->nilai) }}</td>
-                    <td class="col-xs-1" align="right">
+                    <td class="col-md-1" align="right">
                       <a href="/exports/{{$export->id}}/edit" class="btn btn-xs btn-info">Edit</a> 
                     </td>
-                    <td class="col-xs-1 delete" align="left">
+                    <td class="col-md-1 delete" align="left">
                       {!! Form::open(['method'=>'delete', 'route'=>['exports.destroy', $export->id]]) !!}
                       {!! Form::submit('Delete', ['class'=>'btn btn-xs btn-danger']) !!}
                       {!!Form::close()!!}

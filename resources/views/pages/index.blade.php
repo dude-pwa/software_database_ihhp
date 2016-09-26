@@ -9,9 +9,10 @@
 </style> --}}
 <div class="container">
     <div class="row">
-        <br><br>
-        <div class="col-md-4">
-        <h1>Filter Data Komoditi Per HS</h1>
+        <div class="panel panel-success">
+            <h1 class="panel-heading">Filter Data Komoditi Per HS</h1>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;
             {!! Form::select('pilih_data_komoditi', ['export' => 'Export', 'import' => 'Import'], null, 
                 [
                     'placeholder' => 'Pilih Data Komoditi',
@@ -29,10 +30,11 @@
                window.open("filter/"+this.options[ this.selectedIndex ].value, '_self');
              };
             </script> --}}
+            <br><br>
         </div>
 
         {{-- @if (Auth::guest()) --}}
-        <div class="col-md-8 col-md-offset-2">
+        {{-- <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default panel-transparent">
                 <div class="panel-heading">Login</div>
                 <div class="panel-body">
@@ -103,7 +105,7 @@
                     </form>
                 </div>
             </div>
-        </div>
+        </div> --}}
         {{-- @else --}}
         <div class="col-md-10 col-md-offset-4">
             <br>
@@ -111,11 +113,10 @@
             <h1><a href="/imports" class="btn btn-primary col-md-5">Daftar Komoditi Import Berdasarkan Per HS</a></h1><br>
             <h1><a href="/kblicodes" class="btn btn-primary col-md-5">Daftar KBLI</a></h1><br>
             <h1><a href="/countries" class="btn btn-primary col-md-5">Daftar Negara</a></h1><br>
-            <h1><a href="/harbor" class="btn btn-primary col-md-5">Daftar Pelabuhan</a></h1><br>
-            <h1><a href="/items" class="btn btn-primary col-md-5">Daftar Item</a></h1><br>
+            <h1><a href="/harbors" class="btn btn-primary col-md-5">Daftar Pelabuhan</a></h1><br>
 
             <br><br>
-            <h1><a href="{{ url('/logout') }}" class="col-md-1 col-md-offset-4 btn btn-danger "><i class="fa fa-btn fa-sign-out"></i>Exit</a></h1>
+            {{-- <h1><a href="{{ url('/logout') }}" class="col-md-1 col-md-offset-4 btn btn-danger "><i class="fa fa-btn fa-sign-out"></i>Exit</a></h1> --}}
         </div>
         {{-- @endif --}}
     </div>
