@@ -38,7 +38,7 @@ class PagesController extends Controller
 
             if($kbli!=null && $hs!=null && $th!=null && $cn!=null){
                 $exports = Export::orderBy('tahun', 'asc')
-                    ->where(['kode_negara'=>$cn, 'tahun'=>$th]);
+                    ->where(['kode_negara'=>$cn, 'tahun'=>$th, 'hscode'=>$hs]);
                 $exports = $exports->paginate(20);
             }
 
@@ -66,7 +66,7 @@ class PagesController extends Controller
 
             if($kbli!=null && $hs!=null && $th!=null && $cn!=null){
                 $imports = Import::orderBy('tahun', 'asc')
-                    ->where(['kode_negara'=>$cn, 'tahun'=>$th]);
+                    ->where(['kode_negara'=>$cn, 'tahun'=>$th, 'hscode'=>$hs]);
                 $imports = $imports->paginate(20);
             }
 

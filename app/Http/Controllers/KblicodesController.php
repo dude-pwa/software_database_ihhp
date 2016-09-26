@@ -22,7 +22,7 @@ class KblicodesController extends Controller
     public function index()
     {
         $kblicodes = Kblicode::orderBy('kblicode');
-        $kblicodes = $kblicodes->paginate();
+        $kblicodes = $kblicodes->paginate(75);
         return view('kblicodes.index', compact('kblicodes'));
     }
 
