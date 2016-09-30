@@ -10,7 +10,7 @@
 <div class="container">
     <div class="row">
         <div class="panel panel-success">
-            <h1 class="panel-heading">Filter Data Komoditi Per HS</h1>
+            <h1 class="panel-heading">Filter Data Komoditi</h1>
             <br>
             &nbsp;&nbsp;&nbsp;&nbsp;
             {!! Form::select('pilih_data_komoditi', ['export' => 'Export', 'import' => 'Import'], null, 
