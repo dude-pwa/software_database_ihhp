@@ -68,7 +68,6 @@
                   @foreach ($negaraArray as $key => $value)
                     <input type="checkbox" name="negara[]" value="{{$value}}"> {{$key}} <br> 
                   @endforeach
-                  {{dd($negaraArray)}}
                 </div>
               </div>
 {{-- 

@@ -29,15 +29,14 @@ class PagesController extends Controller
                 foreach ($hscode as $hs) {
                     array_push($condition, $hs->hscode);
                 }
-
+            $imports = Import::whereIn('hscode', $condition);
+            $exports = Export::whereIn('hscode', $condition);
 
             // fungsi select tahun dan negara dari data Import
-            $imports = Import::whereIn('hscode', $condition);
             $import_tahun_all = $imports->groupBy('tahun')->get();
             $import_negara_all = $imports->groupBy('nama_negara')->get();
 
             // fungsi select tahun dan negara dari data export
-            $exports = Export::whereIn('hscode', $condition);
             $export_tahun_all = $exports->groupBy('tahun')->get();
             $export_negara_all = $exports->groupBy('nama_negara')->get();
 
@@ -69,14 +68,15 @@ class PagesController extends Controller
               }
             ksort($negaraArray);
 
+            // paginate
+            $imports = $imports->paginate();
+            $exports = $exports->paginate();
+
             // fungsi sum berat bersih dan nilai
             $neto_import = $imports->sum('berat_bersih');
             $value_import = $imports->sum('nilai');
             $neto_export = $exports->sum('berat_bersih');
             $value_export = $exports->sum('nilai');
-
-            $imports = $imports->paginate();
-            $exports = $exports->paginate();
 
 	    	return view('pages.filter', compact('kblicodes', 'kbli', 'imports', 'neto_import', 'value_import', 'import_tahun_all', 'import_negara_all', 'exports', 'export_tahun_all', 'export_negara_all', 'neto_export', 'value_export', 'tahun_array', 'negaraArray'));	
     }
