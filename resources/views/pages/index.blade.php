@@ -13,14 +13,14 @@
             <h1 class="panel-heading">Filter Data Komoditi</h1>
             <br>
             &nbsp;&nbsp;&nbsp;&nbsp;
-            {!! Form::select('pilih_data_komoditi', ['export' => 'Export', 'import' => 'Import'], null, 
+            {{-- {!! Form::select('pilih_data_komoditi', ['export' => 'Export', 'import' => 'Import'], null, 
                 [
                     'placeholder' => 'Pilih Data Komoditi',
                     'id'=>'pilih_data_komoditi',
                     'onchange'=>"window.open('http://localhost:8080/filter/'+this.options[ this.selectedIndex ].value, '_self')"
-                ]); !!}
+                ]); !!} --}}
 
-            {{-- {!! Form::select('kblicode', $kblicodes, null, array('class'=>'', 
+            {!! Form::select('kblicode', $kblicodes, null, array('class'=>'', 
                 'placeholder'=>'Pilih Kode KBLI', 
                 'id'=>'kbli')) !!}
 
@@ -29,7 +29,7 @@
              urlmenu.onchange = function() {
                window.open("filter/"+this.options[ this.selectedIndex ].value, '_self');
              };
-            </script> --}}
+            </script>
             <br><br>
         </div>
 

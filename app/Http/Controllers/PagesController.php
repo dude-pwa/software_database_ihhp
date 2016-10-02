@@ -14,35 +14,71 @@ class PagesController extends Controller
 {
     public function index($komoditi = null){
     		$kblicodes = Kblicode::groupBy('kblicode')->lists('kblicode', 'kblicode');
+
 	    	return view('pages.index', compact('kblicodes'));	
     }
-    public function filterExport($kbli=null, $hs=null, $th=null, $cn=null){
+    public function filterKomoditi($kbli=null){
     		$kblicodes = Kblicode::groupBy('kblicode')->lists('kblicode', 'kblicode');
-            if($kbli!=null){
-                $hscode = Kblicode::where('kblicode', $kbli);
-                $hscode = $hscode->lists('hscode', 'hscode');    
-            }
             
-            if($hs != null){
-    			$export = Export::where('hscode', $hs);
-    			$tahun = $export->lists('tahun', 'tahun');
-    		}else{
-                $tahun = Export::where('hscode', $hs);
+            if($kbli!=null){
+                $hscode = Kblicode::where('kblicode', $kbli)->get();
             }
 
-            if($hs != null){
-                $negara = $export->lists('nama_negara', 'kode_negara');
-            }else{
-                $negara = Export::where('nama_negara', $cn);
-            }
+            // fungsi select import where multiple hscode
+            $condition = array();
+                foreach ($hscode as $hs) {
+                    array_push($condition, $hs->hscode);
+                }
 
-            if($kbli!=null && $hs!=null && $th!=null && $cn!=null){
-                $exports = Export::orderBy('tahun', 'asc')
-                    ->where(['kode_negara'=>$cn, 'tahun'=>$th, 'hscode'=>$hs]);
-                $exports = $exports->paginate(20);
-            }
 
-	    	return view('pages.filter', compact('kblicodes', 'kbli', 'hscode', 'hs', 'tahun', 'th', 'negara', 'cn', 'exports'));	
+            // fungsi select tahun dan negara dari data Import
+            $imports = Import::whereIn('hscode', $condition);
+            $import_tahun_all = $imports->groupBy('tahun')->get();
+            $import_negara_all = $imports->groupBy('nama_negara')->get();
+
+            // fungsi select tahun dan negara dari data export
+            $exports = Export::whereIn('hscode', $condition);
+            $export_tahun_all = $exports->groupBy('tahun')->get();
+            $export_negara_all = $exports->groupBy('nama_negara')->get();
+
+            //tahun array
+            $tahun_array = array();            
+                foreach ($import_tahun_all as $import_tahun){
+                    if(!in_array($import_tahun->tahun, $tahun_array)){
+                        array_push($tahun_array, $import_tahun->tahun);
+                    }
+                }
+                foreach ($export_tahun_all as $export_tahun){
+                    if(!in_array($export_tahun->tahun, $tahun_array)){
+                        array_push($tahun_array, $export_tahun->tahun);
+                    }
+                }
+            sort($tahun_array);
+
+            // negara array with key => value. harus di tulis di view.
+              $negaraArray = [];
+              foreach ($import_negara_all as $import_negara){
+                  if(!array_key_exists($import_negara->nama_negara, $negaraArray)){
+                      $negaraArray = array_add($negaraArray, $import_negara->nama_negara, $import_negara->kode_negara);
+                  }
+              }
+              foreach ($export_negara_all as $export_negara){
+                  if(!array_key_exists($export_negara->nama_negara, $negaraArray)){
+                      $negaraArray = array_add($negaraArray, $export_negara->nama_negara, $export_negara->kode_negara);
+                  }
+              }
+            ksort($negaraArray);
+
+            // fungsi sum berat bersih dan nilai
+            $neto_import = $imports->sum('berat_bersih');
+            $value_import = $imports->sum('nilai');
+            $neto_export = $exports->sum('berat_bersih');
+            $value_export = $exports->sum('nilai');
+
+            $imports = $imports->paginate();
+            $exports = $exports->paginate();
+
+	    	return view('pages.filter', compact('kblicodes', 'kbli', 'imports', 'neto_import', 'value_import', 'import_tahun_all', 'import_negara_all', 'exports', 'export_tahun_all', 'export_negara_all', 'neto_export', 'value_export', 'tahun_array', 'negaraArray'));	
     }
     public function filterImport($kbli=null, $hs=null, $th=null, $cn=null){
             $kblicodes = Kblicode::groupBy('kblicode')->lists('kblicode', 'kblicode');
