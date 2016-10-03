@@ -91,12 +91,14 @@ class PagesController extends Controller
               $negaraArray = [];
               foreach ($import_negara_all as $import_negara){
                   if(!array_key_exists($import_negara->nama_negara, $negaraArray)){
-                      $negaraArray = array_add($negaraArray, $import_negara->nama_negara, $import_negara->kode_negara);
+                      // $negaraArray = array_add($negaraArray, $import_negara->nama_negara, $import_negara->kode_negara);
+                    $negaraArray[$import_negara->nama_negara] = $import_negara->kode_negara;
                   }
               }
               foreach ($export_negara_all as $export_negara){
                   if(!array_key_exists($export_negara->nama_negara, $negaraArray)){
-                      $negaraArray = array_add($negaraArray, $export_negara->nama_negara, $export_negara->kode_negara);
+                      // $negaraArray = array_add($negaraArray, $export_negara->nama_negara, $export_negara->kode_negara);
+                    $negaraArray[$export_negara->nama_negara] = $export_negara->kode_negara;
                   }
               }
             ksort($negaraArray);
@@ -105,20 +107,20 @@ class PagesController extends Controller
             $pelabuhanArray = [];
             foreach ($import_pelabuhan_all as $import_pelabuhan){
                   if(!array_key_exists($import_pelabuhan->nama_pelabuhan, $pelabuhanArray)){
-                      $pelabuhanArray = array_add($pelabuhanArray, $import_pelabuhan->nama_pelabuhan, $import_pelabuhan->kode_pelabuhan);
+                    $pelabuhanArray[$import_pelabuhan->nama_pelabuhan] = $import_pelabuhan->kode_pelabuhan;
                   }
               }
               foreach ($export_pelabuhan_all as $export_pelabuhan){
                   if(!array_key_exists($export_pelabuhan->nama_pelabuhan, $pelabuhanArray)){
-                      $pelabuhanArray = array_add($pelabuhanArray, $export_pelabuhan->nama_pelabuhan, $export_pelabuhan->kode_pelabuhan);
+                    $pelabuhanArray[$export_pelabuhan->nama_pelabuhan] = $export_pelabuhan->kode_pelabuhan;
                   }
               }
               ksort($pelabuhanArray);
 
 
             // paginate
-            $imports = $imports->paginate();
-            $exports = $exports->paginate();
+            $imports = $imports->get();
+            $exports = $exports->get();
 
             // fungsi sum berat bersih dan nilai
             $neto_import = $imports->sum('berat_bersih');

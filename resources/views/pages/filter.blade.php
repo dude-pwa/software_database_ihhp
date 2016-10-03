@@ -23,14 +23,6 @@
                     if($gettahun != null){
                         $kbli_default = $getkbli;
                     }
-                    // if($hs != null){
-                    //     $hs_default = $hs;
-                    // }if($th != null){
-                    //     $th_default = $th;
-                    // }if($cn != null){
-                    //     $cn_name = \App\Country::where('kode_negara', $cn)->first();
-                    //     $cn_default = $cn_name->nama_negara;
-                    // }
                 ?>
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 {{-- {!! Form::select('pilih_data_komoditi', ['export' => 'Export', 'import' => 'Import'], null, 
@@ -39,7 +31,7 @@
                         'id'=>'pilih_data_komoditi',
                         'onchange'=>"window.open('http://localhost:8080/filter/'+this.options[ this.selectedIndex ].value, '_self')"
                     ]); !!} --}}
-              <div class="panel-body" id="filter">
+              <div class="panel-body panel-filter" id="filter">
                 <div class="col-md-1 col-md-offset-0">
                 KBLI: 
                 {!! Form::select('kblicode', $kblicodes, null, array('class'=>'', 
@@ -142,7 +134,7 @@
         <div class="panel-heading"><h4>Total Import KBLI {{$getkbli}}</h4></div>
         <table class="table table-striped">
           <tr>
-            <th>Total Berat Bersih (kg)</th>
+            <th>Total Berat Bersih</th>
             <th>Total Nilai (USD)</th>
           </tr>
           <tr>
@@ -158,7 +150,7 @@
         <div class="panel-heading"><h4>Total Export KBLI {{$getkbli}}</h4></div>
         <table class="table table-striped">
           <tr>
-            <th>Total Berat Bersih (kg)</th>
+            <th>Total Berat Bersih</th>
             <th>Total Nilai (USD)</th>
           </tr>
           <tr>
@@ -169,7 +161,7 @@
       </div>
     </div>
 
-    {{-- select * import --}}
+    {{-- select * import filter --}}
     @if($getkbli!=null)
     <div class="row">
         <div class="panel panel-success">
@@ -189,7 +181,8 @@
                 <?php $i = 0; ?>
                 @foreach($imports as $import)
                   <tr>
-                    <td>{{($imports->currentpage()-1)*$imports->perpage()+1 + $i}}</td>
+                    {{-- <td>{{($imports->currentpage()-1)*$imports->perpage()+1 + $i}}</td> --}}
+                    <td>{{$i+1}}</td>
                     <td>{{ strtoupper($import->tahun) }}</td>
                     <td>{{ strtoupper($import->hscode) }}</td>
                     <td>{{ strtoupper($import->nama_item) }}</td>
@@ -214,11 +207,12 @@
             </table>
             <br>
             <div class="center">
-              {{$imports->links()}}
+              {{-- {{$imports->links()}} --}}
             </div>
         </div>
     </div>
 
+  {{-- select * export filter --}}
     <div class="row">
         <div class="panel panel-success">
             <h4 class="panel-heading">Daftar Komoditi Export</h4>
@@ -237,7 +231,8 @@
                 <?php $i = 0; ?>
                 @foreach($exports as $export)
                   <tr>
-                    <td>{{($exports->currentpage()-1)*$exports->perpage()+1 + $i}}</td>
+                    {{-- <td>{{($exports->currentpage()-1)*$exports->perpage()+1 + $i}}</td> --}}
+                    <td>{{$i+1}}</td>
                     <td>{{ strtoupper($export->tahun) }}</td>
                     <td>{{ strtoupper($export->hscode) }}</td>
                     <td>{{ strtoupper($export->nama_item) }}</td>
@@ -262,7 +257,7 @@
             </table>
             <br>
             <div class="center">
-              {{$exports->links()}}
+              {{-- {{$exports->links()}} --}}
             </div>
         </div>
     </div>
