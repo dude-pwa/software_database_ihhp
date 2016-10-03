@@ -16,18 +16,11 @@
             <h1 class="panel-heading">Filter Data Komoditi Per HS</h1>
             <br>
                 <?php 
-                    $current_route = \Request::route()->getName();
-                    $komoditi_default = 'Pilih Data Komoditi';
                     $kbli_default = 'Pilih Kode KBLI'; 
-                    $hs_default = 'Pilih Kode HS'; 
-                    $th_default = 'Pilih Tahun'; 
-                    $cn_default = 'Pilih Negara';
-                    if($current_route == 'filter.export'){
-                        $komoditi_default = 'export';
-                    }elseif($current_route == 'filter.import'){
-                      $komoditi_default = 'import';
-                    }
                     if($getkbli != null){
+                        $kbli_default = $getkbli;
+                    }
+                    if($gettahun != null){
                         $kbli_default = $getkbli;
                     }
                     // if($hs != null){
@@ -46,7 +39,7 @@
                         'id'=>'pilih_data_komoditi',
                         'onchange'=>"window.open('http://localhost:8080/filter/'+this.options[ this.selectedIndex ].value, '_self')"
                     ]); !!} --}}
-              <div class="panel-body">
+              <div class="panel-body" id="filter">
                 <div class="col-md-1 col-md-offset-0">
                 KBLI: 
                 {!! Form::select('kblicode', $kblicodes, null, array('class'=>'', 
@@ -61,67 +54,83 @@
                   <div class="col-md-1 col-md-offset-0">
                     Tahun: <br>
                     @foreach ($tahun_array as $tahun) 
-                      <input type="checkbox" name="tahun[]" value="{{$tahun}}"> {{$tahun}} <br> 
+                      <input 
+                        type="checkbox" 
+                        name="tahun[]" 
+                        value="{{$tahun}}"
+                        @if($gettahun != null)
+                          @foreach($gettahun as $tahun_param)
+                            @if($tahun_param == $tahun)
+                              checked="checked" 
+                            @endif
+                          @endforeach
+                        @else
+                        checked="" 
+                        @endif
+                      > {{$tahun}} <br> 
                     @endforeach
                   </div>
 
-                  <div class="col-md-3 col-md-offset-0 small">
+                  <div class="col-md-3 col-md-offset-0">
                     Negara: <br>
                     @foreach ($negaraArray as $key => $value)
-                      <input type="checkbox" name="negara[]" value="{{$value}}"> {{$key}} <br> 
+                      <input 
+                        type="checkbox" 
+                        name="negara[]" 
+                        value="{{$value}}"
+                        @if($getnegara != null)
+                          @foreach($getnegara as $negara_param)
+                            @if($negara_param == $value)
+                              checked="checked" 
+                            @endif
+                          @endforeach
+                        @else
+                        checked="" 
+                        @endif
+                      > {{$key}} <br> 
                     @endforeach
                   </div>
 
-                  <div class="col-md-3 col-md-offset-0 small">
+                  <div class="col-md-3 col-md-offset-0">
+                    Pelabuhan: <br>
+                    @foreach ($pelabuhanArray as $key => $value)
+                      <input 
+                        type="checkbox" 
+                        name="pelabuhan[]" 
+                        value="{{$value}}"
+                        @if($getpelabuhan != null)
+                          @foreach($getpelabuhan as $pelabuhan_param)
+                            @if($pelabuhan_param == $value)
+                              checked="checked" 
+                            @endif
+                          @endforeach
+                        @else
+                        checked="" 
+                        @endif
+                      > {{$key}} <br> 
+                    @endforeach
+                  </div>
+
+                  <div class="col-md-3 col-md-offset-0">
+                    Action: <br>
+                    <a href="#" id="uncheck">Uncheck All</a> / 
+                    <a href="#" id="check_all">Check All</a> <br><br>
                     {!!Form::submit('Filter', ['class'=>'btn btn-primary'])!!}
                   </div>
                 {!!Form::close()!!}
 
               </div>
-{{-- 
-                @if($kbli != null)
-                {!! Form::select('hscode', $hscode, null, array(
-                    'class'=>'', 
-                    'placeholder'=>$hs_default, 
-                    'id'=>'hs',
-                    'onchange'=>"window.open('http://localhost:8080/filter/$komoditi_default/$kbli/'+this.options[ this.selectedIndex ].value, '_self')"
-                    )) !!}
-                @endif
-
-                @if($hs != null)
-                {!! Form::select('tahun', $tahun, null, array(
-                    'class'=>'', 
-                    'placeholder'=>$th_default, 
-                    'id'=>'tahun',
-                    'onchange'=>"window.open('http://localhost:8080/filter/$komoditi_default/$kbli/$hs/'+this.options[ this.selectedIndex ].value, '_self')"
-                    )) !!}
-                @endif
-
-                @if($th != null)
-                {!! Form::select('negara', $negara, null, array(
-                    'class'=>'', 
-                    'placeholder'=>$cn_default, 
-                    'id'=>'negara',
-                    'onchange'=>"window.open('http://localhost:8080/filter/$komoditi_default/$kbli/$hs/$th/'+this.options[ this.selectedIndex ].value, '_self')"
-                    )) !!}
-                @endif --}}
 
                 <script type="text/javascript">
-                 // var urlmenu = document.getElementById( 'kbli' );
-                 // urlmenu.onchange = function() {
-                 //   window.location.replace('http://localhost:8080/filter/'+this.options[ this.selectedIndex ].value, '_self');
-                 // };
+                // fungsi unchek all
+                  $("#uncheck").click(function(){
+                    $("#filter").find('input[type=checkbox]:checked').prop('checked', false);      
+                  });
 
-                 // var urlhs = document.getElementById( 'hs' );
-                 // urlhs.onchange = function() {
-                 {{-- // window.location.replace('http://localhost:8080/filter/'+{{$kbli}}+'/'+this.options[ this.selectedIndex ].value, '_self'); --}}
-                 // };
-
-                 // var urlth = document.getElementById( 'tahun' );
-                 // urlth.onchange = function() {
-                 {{-- // window.location.replace('http://localhost:8080/filter/'+{{$kbli}}+'/'+{{$hs}}+'/'+this.options[ this.selectedIndex ].value, '_self'); --}}
-                 // };
-
+                // fungsi check all
+                  $("#check_all").click(function(){
+                    $("#filter").find('input[type=checkbox]').prop('checked', true);      
+                  });
                 </script>
                 <br><br>
         </div>
