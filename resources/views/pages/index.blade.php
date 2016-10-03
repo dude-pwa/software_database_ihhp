@@ -27,7 +27,7 @@
             <script type="text/javascript">
              var urlmenu = document.getElementById( 'kbli' );
              urlmenu.onchange = function() {
-               window.open("filter/"+this.options[ this.selectedIndex ].value, '_self');
+               window.open("filter?kbli="+this.options[ this.selectedIndex ].value, '_self');
              };
             </script>
             <br><br>

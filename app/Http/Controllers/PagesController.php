@@ -17,11 +17,16 @@ class PagesController extends Controller
 
 	    	return view('pages.index', compact('kblicodes'));	
     }
-    public function filterKomoditi($kbli=null){
+    public function filterKomoditi(Request $request){
     		$kblicodes = Kblicode::groupBy('kblicode')->lists('kblicode', 'kblicode');
+
+            // mengambil parameter
+            $getkbli = $request->get('kbli');
+            $gettahun = $request->get('tahun');
+            $getnegara = $request->get('negara');
             
-            if($kbli!=null){
-                $hscode = Kblicode::where('kblicode', $kbli)->get();
+            if($getkbli!=null){
+                $hscode = Kblicode::where('kblicode', $getkbli)->get();
             }
 
             // fungsi select import where multiple hscode
@@ -29,16 +34,29 @@ class PagesController extends Controller
                 foreach ($hscode as $hs) {
                     array_push($condition, $hs->hscode);
                 }
-            $imports = Import::whereIn('hscode', $condition);
-            $exports = Export::whereIn('hscode', $condition);
+
+            // fungsi filter
+            if($gettahun != null && $getnegara != null){
+                $imports = Import::whereIn('hscode', $condition)->whereIn('tahun', $gettahun)->whereIn('kode_negara', $getnegara);
+                $exports = Export::whereIn('hscode', $condition)->whereIn('tahun', $gettahun)->whereIn('kode_negara', $getnegara);
+            }elseif($gettahun != null && $getnegara == null){
+                $imports = Import::whereIn('hscode', $condition)->whereIn('tahun', $gettahun);
+                $exports = Export::whereIn('hscode', $condition)->whereIn('tahun', $gettahun);
+            }elseif($gettahun == null && $getnegara != null){
+                $imports = Import::whereIn('hscode', $condition)->whereIn('kode_negara', $getnegara);
+                $exports = Export::whereIn('hscode', $condition)->whereIn('kode_negara', $getnegara);    
+            }elseif($gettahun == null && $getnegara == null){
+                $imports = Import::whereIn('hscode', $condition);
+                $exports = Export::whereIn('hscode', $condition);    
+            }
 
             // fungsi select tahun dan negara dari data Import
-            $import_tahun_all = $imports->groupBy('tahun')->get();
-            $import_negara_all = $imports->groupBy('nama_negara')->get();
+            $import_tahun_all = Import::whereIn('hscode', $condition)->groupBy('tahun')->get();
+            $import_negara_all = Import::whereIn('hscode', $condition)->groupBy('nama_negara')->get();
 
             // fungsi select tahun dan negara dari data export
-            $export_tahun_all = $exports->groupBy('tahun')->get();
-            $export_negara_all = $exports->groupBy('nama_negara')->get();
+            $export_tahun_all = Export::whereIn('hscode', $condition)->groupBy('tahun')->get();
+            $export_negara_all = Export::whereIn('hscode', $condition)->groupBy('nama_negara')->get();
 
             //tahun array
             $tahun_array = array();            
@@ -78,7 +96,7 @@ class PagesController extends Controller
             $neto_export = $exports->sum('berat_bersih');
             $value_export = $exports->sum('nilai');
 
-	    	return view('pages.filter', compact('kblicodes', 'kbli', 'imports', 'neto_import', 'value_import', 'import_tahun_all', 'import_negara_all', 'exports', 'export_tahun_all', 'export_negara_all', 'neto_export', 'value_export', 'tahun_array', 'negaraArray'));	
+	    	return view('pages.filter', compact('kblicodes', 'getkbli', 'imports', 'neto_import', 'value_import', 'import_tahun_all', 'import_negara_all', 'exports', 'export_tahun_all', 'export_negara_all', 'neto_export', 'value_export', 'tahun_array', 'negaraArray'));	
     }
     public function filterImport($kbli=null, $hs=null, $th=null, $cn=null){
             $kblicodes = Kblicode::groupBy('kblicode')->lists('kblicode', 'kblicode');

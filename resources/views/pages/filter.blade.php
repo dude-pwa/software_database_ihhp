@@ -27,8 +27,8 @@
                     }elseif($current_route == 'filter.import'){
                       $komoditi_default = 'import';
                     }
-                    if($kbli != null){
-                        $kbli_default = $kbli;
+                    if($getkbli != null){
+                        $kbli_default = $getkbli;
                     }
                     // if($hs != null){
                     //     $hs_default = $hs;
@@ -52,23 +52,31 @@
                 {!! Form::select('kblicode', $kblicodes, null, array('class'=>'', 
                     'placeholder'=>$kbli_default, 
                     'id'=>'kbli',
-                    'onchange'=>"window.open('http://localhost:8080/filter/'+this.options[ this.selectedIndex ].value, '_self')"
+                    'onchange'=>"window.open('http://localhost:8080/filter?kbli='+this.options[ this.selectedIndex ].value, '_self')"
                     )) !!}
                 </div>
 
-                <div class="col-md-1 col-md-offset-0">
-                  Tahun: <br>
-                  @foreach ($tahun_array as $tahun) 
-                    <input type="checkbox" name="tahun[]" value="{{$tahun}}"> {{$tahun}} <br> 
-                  @endforeach
-                </div>
+                {!! Form::open(['method'=>'GET', 'route'=>'filter.komoditi']) !!}
+                  {!!Form::hidden('kbli', $kbli_default)!!}
+                  <div class="col-md-1 col-md-offset-0">
+                    Tahun: <br>
+                    @foreach ($tahun_array as $tahun) 
+                      <input type="checkbox" name="tahun[]" value="{{$tahun}}"> {{$tahun}} <br> 
+                    @endforeach
+                  </div>
 
-                <div class="col-md-3 col-md-offset-0 small">
-                  Negara: <br>
-                  @foreach ($negaraArray as $key => $value)
-                    <input type="checkbox" name="negara[]" value="{{$value}}"> {{$key}} <br> 
-                  @endforeach
-                </div>
+                  <div class="col-md-3 col-md-offset-0 small">
+                    Negara: <br>
+                    @foreach ($negaraArray as $key => $value)
+                      <input type="checkbox" name="negara[]" value="{{$value}}"> {{$key}} <br> 
+                    @endforeach
+                  </div>
+
+                  <div class="col-md-3 col-md-offset-0 small">
+                    {!!Form::submit('Filter', ['class'=>'btn btn-primary'])!!}
+                  </div>
+                {!!Form::close()!!}
+
               </div>
 {{-- 
                 @if($kbli != null)
@@ -122,7 +130,7 @@
     {{-- total import end ekspor --}}
     <div class="row">
       <div class="panel panel-success">
-        <div class="panel-heading"><h4>Total Import KBLI {{$kbli}}</h4></div>
+        <div class="panel-heading"><h4>Total Import KBLI {{$getkbli}}</h4></div>
         <table class="table table-striped">
           <tr>
             <th>Total Berat Bersih (kg)</th>
@@ -138,7 +146,7 @@
 
     <div class="row">
       <div class="panel panel-success">
-        <div class="panel-heading"><h4>Total Export KBLI {{$kbli}}</h4></div>
+        <div class="panel-heading"><h4>Total Export KBLI {{$getkbli}}</h4></div>
         <table class="table table-striped">
           <tr>
             <th>Total Berat Bersih (kg)</th>
@@ -153,7 +161,7 @@
     </div>
 
     {{-- select * import --}}
-    @if($kbli!=null)
+    @if($getkbli!=null)
     <div class="row">
         <div class="panel panel-success">
             <h4 class="panel-heading">Daftar Komoditi Import</h4>

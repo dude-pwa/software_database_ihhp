@@ -12,7 +12,7 @@
 */
 Route::get('/', 'PagesController@index');
 // Route::get('/filter/{komoditi?}/{kbli?}/{hs?}/{th?}/{cn?}', 'PagesController@filter');
-Route::get('/filter/{kbli?}/{hs?}/{th?}/{cn?}', [
+Route::get('/filter', [
 	'uses'=>'PagesController@filterKomoditi',
 	'as'=>'filter.komoditi'
 	]);
