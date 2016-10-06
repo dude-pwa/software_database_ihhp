@@ -1,6 +1,8 @@
 @extends('app')
 
 @section('content')
+	<a href="/" class="btn btn-warning">Kembali Ke Menu Utama</a>
+	<a href="/imports" class="btn btn-primary">Kembali Sebelumnya</a> 
 	<div class="panel panel-success">
 		<h1 class="panel-heading">Tambah Daftar Import</h1>
 		<div class="panel-form panel-content">
