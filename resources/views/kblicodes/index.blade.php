@@ -2,7 +2,7 @@
 
 @section('content')
 	<br>
-	<a href="/kblicodes/create" class="btn btn-primary">Tambah Daftar KBLI</a> | <a href="/kblicodes/import" class="btn btn-primary">Tambah Daftar Dari File Excel</a>
+	<a href="/kblicodes/create" class="btn btn-primary">Tambah Daftar KBLI</a> | <a href="/kblicodes/import" class="btn btn-primary">Tambah Daftar KBLI Dari File Excel</a>
 	<br><br>
 	<a href="/" class="btn btn-warning">Kembali Ke Menu Utama</a>
 	<div class="panel panel-success">
