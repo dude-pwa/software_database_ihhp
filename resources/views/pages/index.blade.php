@@ -17,7 +17,7 @@
                 [
                     'placeholder' => 'Pilih Data Komoditi',
                     'id'=>'pilih_data_komoditi',
-                    'onchange'=>"window.open('http://localhost:8080/filter/'+this.options[ this.selectedIndex ].value, '_self')"
+                    'onchange'=>"window.open('http://localhost/filter/'+this.options[ this.selectedIndex ].value, '_self')"
                 ]); !!} --}}
 
             {!! Form::select('kblicode', $kblicodes, null, array('class'=>'', 
