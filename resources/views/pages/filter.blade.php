@@ -29,7 +29,7 @@
                     [
                         'placeholder' => $komoditi_default,
                         'id'=>'pilih_data_komoditi',
-                        'onchange'=>"window.open('http://localhost/software_database_ihhp/public/filter/'+this.options[ this.selectedIndex ].value, '_self')"
+                        'onchange'=>"window.open('http://localhost:8080/filter/'+this.options[ this.selectedIndex ].value, '_self')"
                     ]); !!} --}}
               <div class="panel-body panel-filter" id="filter">
                 <div class="col-md-1 col-md-offset-0">
@@ -37,7 +37,7 @@
                 {!! Form::select('kblicode', $kblicodes, null, array('class'=>'', 
                     'placeholder'=>$kbli_default, 
                     'id'=>'kbli',
-                    'onchange'=>"window.open('http://localhost/software_database_ihhp/public/filter?kbli='+this.options[ this.selectedIndex ].value, '_self')"
+                    'onchange'=>"window.open('http://localhost:8080/filter?kbli='+this.options[ this.selectedIndex ].value, '_self')"
                     )) !!}
                 </div>
 

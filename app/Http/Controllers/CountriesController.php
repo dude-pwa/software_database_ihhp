@@ -10,6 +10,7 @@ use Session;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
+use DB;
 
 class CountriesController extends Controller
 {
@@ -33,6 +34,9 @@ class CountriesController extends Controller
            return redirect('countries/import')->withErrors($validator);
        }else{
             try{
+                // 1st WAY -> BUG FIXED
+                // NOTE:
+                // 1. if new column was added, please make sure make it fillable in the model
                 Excel::load(Input::file('file'), function($reader){
                     $reader->each(function($sheet){
                         foreach ($sheet->toArray() as $row) {
@@ -40,6 +44,21 @@ class CountriesController extends Controller
                         }
                     });
                 });
+
+                // // 2nd WAY
+                // $path = Input::file('file')->getRealPath();
+                // $data = Excel::load($path, function($reader) {
+                // })->get();
+                // if(!empty($data) && $data->count()){
+                //     foreach ($data as $key => $value) {
+                //         $insert[] = ['kode_negara' => $value->title, 'nama_negara' => $value->description];
+                //     }
+                //     if(!empty($insert)){
+                //         DB::table('countries')->insert($insert);
+                //         dd('Insert Record successfully.');
+                //     }
+                // }
+
                 Session::flash('message', 'Data Negara berhasil di input via file excel');
                 return redirect('countries');
             }catch(\Exception $e){

@@ -12,6 +12,7 @@
 				<th class="col-md-1">No.</th>
 				<th class="col-md-2">Kode Negara</th>
 				<th class="col-md-2">Nama Negara</th>
+				<th class="col-md-2">Benua</th>
 				<th colspan="2" class="center">Action</th>
 			</tr>
 			<?php $i = 0; ?>
@@ -20,6 +21,7 @@
 						<td>{{($countries->currentpage()-1)*$countries->perpage()+1 + $i}}</td>
 						<td>{{ strtoupper($country->kode_negara) }}</td>
 						<td>{{ strtoupper($country->nama_negara) }}</td>
+						<td>{{ strtoupper($country->benua_negara) }}</td>
 
 						@if (!Auth::guest())
 						<td class="col-md-1" align="right">
