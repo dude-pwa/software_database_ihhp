@@ -28,6 +28,8 @@ class CountriesController extends Controller
     public function postImport(){
        $rules = ['file' => 'required'];
        $validator = Validator::make(Input::all(), $rules);
+
+
        // process the form
        if ($validator->fails()) 
        {

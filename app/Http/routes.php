@@ -1,5 +1,12 @@
 <?php
 
+// use App\Http\Requests;
+// use Illuminate\Support\Facades\Input;
+use Illuminate\Http\Request;
+use App\Export;
+use App\Import;
+use App\Kblicode;
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -20,6 +27,97 @@ Route::get('/filter', [
 // 	'uses'=>'PagesController@filterImport',
 // 	'as'=>'filter.import'
 // 	]);
+
+// fungsi FILTER NEGARA
+Route::get('/ajax-negara', function(Request $request){
+	// $benua = $request->get('benua');
+	$getkbli = $request->get('kbli');
+
+	$benua = explode(',', $request->get('benua'));
+	// dd($benua);
+
+
+	if($getkbli!=null){
+        $hscode = Kblicode::where('kblicode', $getkbli)->get();
+    }
+
+    $condition = array();
+    foreach ($hscode as $hs) {
+        array_push($condition, $hs->hscode);
+    }
+
+	$import_negara_all = Import::whereIn('hscode', $condition)
+		->whereIn('benua', $benua)
+		->groupBy('nama_negara')->get();
+
+		// dd($import_negara_all);
+
+    $export_negara_all = Export::whereIn('hscode', $condition)
+	    ->whereIn('benua', $benua)
+	    ->groupBy('nama_negara')->get();
+
+
+	$negaraGroup = [];
+	foreach ($import_negara_all as $import_negara){
+	  if(!in_array($import_negara->nama_negara, $negaraGroup)){
+	    $negaraGroup[] = ['id'=>$import_negara->kode_negara, 'name'=>$import_negara->nama_negara];
+	  }
+	}
+	foreach ($export_negara_all as $export_negara){
+	  if(!in_array($export_negara->nama_negara, $negaraGroup)){
+	    $negaraGroup[] = ['id'=>$export_negara->kode_negara, 'name'=>$export_negara->nama_negara];
+	  }
+	}
+	ksort($negaraGroup);
+
+	return Response::json($negaraGroup);
+});
+
+Route::get('/ajax-provinsi', function(Request $request){
+	// $provinsi = $request->get('provinsi');
+	$getkbli = $request->get('kbli');
+
+	$provinsi = explode(',', $request->get('provinsi'));
+	// var_dump($provinsi);
+
+
+	if($getkbli!=null){
+        $hscode = Kblicode::where('kblicode', $getkbli)->get();
+    }
+
+    $condition = array();
+    foreach ($hscode as $hs) {
+        array_push($condition, $hs->hscode);
+    }
+
+	$import_pelabuhan_all = Import::whereIn('hscode', $condition)
+		->whereIn('provinsi', $provinsi)
+		->groupBy('nama_pelabuhan')->get();
+
+		// dd($import_pelabuhan_all);
+
+    $export_pelabuhan_all = Export::whereIn('hscode', $condition)
+	    ->whereIn('provinsi', $provinsi)
+	    ->groupBy('nama_pelabuhan')->get();
+
+
+	// dd(count($import_pelabuhan_all->toArray()));
+
+	$pelabuhanGroup = [];
+	foreach ($import_pelabuhan_all as $import_pelabuhan){
+	  if(!in_array($import_pelabuhan->nama_pelabuhan, $pelabuhanGroup)){
+	    $pelabuhanGroup[] = ['id'=>$import_pelabuhan->kode_pelabuhan, 'name'=>$import_pelabuhan->nama_pelabuhan];
+	  }
+	}
+	foreach ($export_pelabuhan_all as $export_pelabuhan){
+	  if(!in_array($export_pelabuhan->nama_pelabuhan, $pelabuhanGroup)){
+	    $pelabuhanGroup[] = ['id'=>$export_pelabuhan->kode_pelabuhan, 'name'=>$export_pelabuhan->nama_pelabuhan];
+	  }
+	}
+	ksort($pelabuhanGroup);
+
+	return Response::json($pelabuhanGroup);
+});
 
 Route::get('/kblicodes', 'KblicodesController@index');
 Route::get('/kblicodes/create', 'KblicodesController@create');

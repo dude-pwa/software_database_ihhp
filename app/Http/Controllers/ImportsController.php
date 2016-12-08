@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests\ImportsRequest;
 use App\Import;
+use App\Country;
 use Session;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Input;
@@ -35,8 +36,17 @@ class ImportsController extends Controller
             try{
                 Excel::load(Input::file('file'), function($reader){
                     $reader->each(function($sheet){
+                        // selek negara
+                       $countries = Country::all();
                         foreach ($sheet->toArray() as $row) {
-                            Import::firstOrCreate($sheet->toArray());
+                            foreach ($countries as $negara) {
+                                if($sheet['kode_negara'] == $negara->kode_negara){
+                                    $sheet['benua'] = $negara->benua_negara;    
+                                    // dd($sheet['benua']);
+                                    Import::firstOrCreate($sheet->toArray());
+                                }
+                                // Import::firstOrCreate($sheet->toArray());
+                            }
                         }
                     });
                 });

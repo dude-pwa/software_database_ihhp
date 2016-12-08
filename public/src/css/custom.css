@@ -6,6 +6,10 @@ body{
 	text-align: center;
 }
 
+/*.hidden {
+    display: none;
+}*/
+
 .inputstl { 
     padding: 9px; 
     border: solid 1px #4B718B; 
@@ -138,10 +142,21 @@ body{
     background: rgba(46, 51, 56, 0.2)!important;
 }
 
+/*#filter{
+  height: 260px;
+  padding-bottom: -1000px;
+  max-height: 400px;
+}*/
+
+
 .bold{
   font-weight: bold; 
 }
 
 a.medium{
   font-size: medium;
+}
+
+.small{
+  /*font-size: 7px;*/
 }

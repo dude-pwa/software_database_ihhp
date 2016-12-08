@@ -32,7 +32,7 @@
                         'onchange'=>"window.open('http://localhost:8080/filter/'+this.options[ this.selectedIndex ].value, '_self')"
                     ]); !!} --}}
               <div class="panel-body panel-filter" id="filter">
-                <div class="col-md-1 col-md-offset-0">
+                <div class="col-md-12 col-md-offset-0">
                 KBLI: 
                 {!! Form::select('kblicode', $kblicodes, null, array('class'=>'', 
                     'placeholder'=>$kbli_default, 
@@ -41,10 +41,16 @@
                     )) !!}
                 </div>
 
+                <br><br>
+
                 {!! Form::open(['method'=>'GET', 'route'=>'filter.komoditi']) !!}
                   {!!Form::hidden('kbli', $kbli_default)!!}
-                  <div class="col-md-1 col-md-offset-0">
-                    Tahun: <br>
+                  <div class="col-md-3 col-md-offset-0 btn-xs" id="tahun_checkbox" style="width: 180px;">
+                    <b>Tahun: </b><br>
+                    <a class="btn btn-xs" id="uncheck_tahun">Uncheck All</a> / 
+                    <a class="btn btn-xs" id="check_tahun">Check All</a>
+                    <br>
+                    <div style="max-height: 400px; overflow: auto">
                     @foreach ($tahun_array as $tahun) 
                       <input 
                         type="checkbox" 
@@ -61,52 +67,118 @@
                         @endif
                       > {{$tahun}} <br> 
                     @endforeach
+                    </div>
                   </div>
 
-                  <div class="col-md-3 col-md-offset-0">
-                    Negara: <br>
-                    @foreach ($negaraArray as $key => $value)
+                  <div class="col-md-3 col-md-offset-0 btn-xs" id="benua_checkbox" style="max-height: 400px; width: 180px; overflow: auto">
+                    <b>Benua:</b> <br> 
+                    <a class="btn btn-xs" id="uncheck_benua">Uncheck All</a> / 
+                    <a class="btn btn-xs" id="check_benua">Check All</a>
+                    <br>
+                    @foreach ($benuaArray as $benua) 
                       <input 
                         type="checkbox" 
-                        name="negara[]" 
-                        value="{{$value}}"
-                        @if($getnegara != null)
-                          @foreach($getnegara as $negara_param)
-                            @if($negara_param == $value)
+                        name="benua[]" 
+                        value="{{$benua}}"
+                        id = "{{$benua}}Check"
+                        @if($getbenua != null)
+                          @foreach($getbenua as $benua_param)
+                            @if($benua_param == $benua)
                               checked="checked" 
                             @endif
                           @endforeach
                         @else
                         checked="" 
                         @endif
-                      > {{$key}} <br> 
+                      > {{$benua}} <br> 
                     @endforeach
+                    <br>
+                    <a href="#" class="btn btn-xs btn-success" id="filterNegara">Filter Negara</a>
                   </div>
 
-                  <div class="col-md-3 col-md-offset-0">
-                    Pelabuhan: <br>
-                    @foreach ($pelabuhanArray as $key => $value)
+                  <div class="col-md-3 col-md-offset-0 btn-xs" id="prov_checkbox" style="max-height: 400px; width: 210px; overflow: auto">
+                    <b>Provinsi:</b> <br> 
+                    <a class="btn btn-xs" id="uncheck_prov">Uncheck All</a> / 
+                    <a class="btn btn-xs" id="check_prov">Check All</a>
+                    <br>
+                    @foreach ($provinsiArray as $provinsi) 
                       <input 
                         type="checkbox" 
-                        name="pelabuhan[]" 
-                        value="{{$value}}"
-                        @if($getpelabuhan != null)
-                          @foreach($getpelabuhan as $pelabuhan_param)
-                            @if($pelabuhan_param == $value)
+                        name="provinsi[]" 
+                        value="{{$provinsi}}"
+                        @if($getprovinsi != null)
+                          @foreach($getprovinsi as $provinsi_param)
+                            @if($provinsi_param == $provinsi)
                               checked="checked" 
                             @endif
                           @endforeach
                         @else
                         checked="" 
                         @endif
-                      > {{$key}} <br> 
+                      > {{$provinsi}} <br> 
                     @endforeach
+                    <br>
+                    <a href="#" class="btn btn-xs btn-success" id="filterProvinsi">Filter Provinsi</a>
                   </div>
 
-                  <div class="col-md-3 col-md-offset-0">
-                    Action: <br>
-                    <a href="#" id="uncheck">Uncheck All</a> / 
-                    <a href="#" id="check_all">Check All</a> <br><br>
+                  <div class="col-md-3 col-md-offset-0 btn-xs" id="negara_checkbox" style="width: 210px;">
+                    <b>Negara:</b> <br>
+                    <a class="btn btn-xs" id="uncheck_negara">Uncheck All</a> / 
+                    <a class="btn btn-xs" id="check_negara">Check All</a>
+                    <br>
+                    <div style="max-height: 400px; overflow: auto">
+                      <div id="Negara">
+                        @foreach ($negaraArray as $key => $value)
+                          <input 
+                            type="checkbox" 
+                            name="negara[]" 
+                            value="{{$value}}" 
+                            display="{{$key}}"
+                            @if($getnegara != null)
+                              @foreach($getnegara as $negara_param)
+                                @if($negara_param == $value)
+                                  checked="checked" 
+                                @endif
+                              @endforeach
+                            @else
+                              checked="" 
+                            @endif
+                          > {{$key}} <br> 
+                        @endforeach
+                        <!-- <input type="checkbox" name="negara[]" value=""> -->
+                      </div>
+                    </div>
+                  </div>
+
+                   <div class="col-md-3 col-md-offset-0 btn-xs" id="pelabuhan_checkbox" style="width:200px;">
+                    <b>Pelabuhan:</b> <br>
+                    <a class="btn btn-xs" id="uncheck_pelabuhan">Uncheck All</a> / 
+                    <a class="btn btn-xs" id="check_pelabuhan">Check All</a>
+                    <br>
+                    <div style="height:400px; overflow: auto">
+                      <div id="Pelabuhan">
+                        @foreach ($pelabuhanArray as $key => $value)
+                          <input 
+                            type="checkbox" 
+                            name="pelabuhan[]" 
+                            value="{{$value}}"
+                            @if($getpelabuhan != null)
+                              @foreach($getpelabuhan as $pelabuhan_param)
+                                @if($pelabuhan_param == $value)
+                                  checked="checked" 
+                                @endif
+                              @endforeach
+                            @else
+                            checked="" 
+                            @endif
+                          > {{$key}} <br> 
+                        @endforeach
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-1 col-md-offset-0">
+                    <b>Action: </b><br><br>
                     {!!Form::submit('Filter', ['class'=>'btn btn-primary'])!!}
                   </div>
                 {!!Form::close()!!}
@@ -114,19 +186,130 @@
               </div>
 
                 <script type="text/javascript">
-                // fungsi unchek all
+                // fungsi unchek tahun
+                  $("#uncheck_tahun").click(function(){
+                    $("#tahun_checkbox").find('input[type=checkbox]:checked').prop('checked', false);      
+                  });
+                  // fungsi unchek benua
+                  $("#uncheck_benua").click(function(){
+                    $("#benua_checkbox").find('input[type=checkbox]:checked').prop('checked', false);      
+                  });
+
+                 // fungsi unchek all
                   $("#uncheck").click(function(){
                     $("#filter").find('input[type=checkbox]:checked').prop('checked', false);      
                   });
 
-                // fungsi check all
-                  $("#check_all").click(function(){
-                    $("#filter").find('input[type=checkbox]').prop('checked', true);      
+                // fungsi check tahun
+                  $("#check_tahun").click(function(){
+                    $("#tahun_checkbox").find('input[type=checkbox]').prop('checked', true);      
+                  });
+                  // fungsi check benua
+                  $("#check_benua").click(function(){
+                    $("#benua_checkbox").find('input[type=checkbox]').prop('checked', true);
+
+                      // $("#AsiaCheck").change(function(){
+                        // alert("Asia");
+                        // if(this.checked){
+                          // alert("http://localhost:8080/filter?kbli="+{{$kbli_default}}+"&benua[]=Asia");
+                      //   }
+                      // });
+                  });
+
+                  // fungsi unchek negara
+                  $("#uncheck_negara").click(function(){
+                    $("#negara_checkbox").find('input[type=checkbox]:checked').prop('checked', false);      
+                  });
+                  // fungsi check negara
+                  $("#check_negara").click(function(){
+                    $("#negara_checkbox").find('input[type=checkbox]').prop('checked', true);      
+                  });
+                  // fungsi unchek pelabuhan
+                  $("#uncheck_pelabuhan").click(function(){
+                    $("#pelabuhan_checkbox").find('input[type=checkbox]:checked').prop('checked', false);      
+                  });
+                  // fungsi check pelabuhan
+                  $("#check_pelabuhan").click(function(){
+                    $("#pelabuhan_checkbox").find('input[type=checkbox]').prop('checked', true);      
+                  });
+                  // fungsi unchek provinsi
+                  $("#uncheck_prov").click(function(){
+                    $("#prov_checkbox").find('input[type=checkbox]:checked').prop('checked', false);      
+                  });
+                  // fungsi check provinsi
+                  $("#check_prov").click(function(){
+                    $("#prov_checkbox").find('input[type=checkbox]').prop('checked', true);      
+                  });
+
+
+                  $("#filterNegara").click(function(e){
+                    // alert("Asia");
+                    var asia, eropa, afrika, amerika, australia; 
+                    
+                    if($("#AsiaCheck").is(":checked")){
+                      asia = "Asia";
+                    }else{
+                       asia= "";
+                    }
+                    if($("#EropaCheck").is(":checked")){
+                      eropa = "Eropa";
+                    }else{
+                       eropa= "";
+                    }
+                    if($("#AfrikaCheck").is(":checked")){
+                      afrika = "Afrika";
+                    }else{
+                       afrika= "";
+                    }
+                    if($("#AmerikaCheck").is(":checked")){
+                      amerika = "Amerika";
+                    }else{
+                       amerika= "";
+                    }
+                    if($("#AustraliaCheck").is(":checked")){
+                      australia = "Australia";
+                    }else{
+                       australia= "";
+                    }
+                    
+
+                    var benua = [asia,eropa,afrika,amerika,australia];
+                    // console.log(benua);
+                    
+                    $.get('/ajax-negara?kbli='+{{$kbli_default}}+'&benua='+benua, function(data){
+                      $('#Negara').empty();
+                      $.each(data, function(index, negaraObj){
+                        $('#Negara').append(
+                          '<input type="checkbox" name="negara[]" value="'+negaraObj.id+'"> '+negaraObj.name+ '<br>'
+                        );
+                      });
+                    });
+                  });
+
+                  $("#filterProvinsi").click(function(e){
+                    var provinsi = new Array();
+                    
+                    $("input[name='provinsi[]']").each( function () {
+                      if($(this).is(":checked")){
+                        provinsi.push($(this).val());
+                      }
+                    });
+                    
+                    // console.log(provinsi);
+
+                    $.get('/ajax-provinsi?kbli='+{{$kbli_default}}+'&provinsi='+provinsi, function(data){
+                      $('#Pelabuhan').empty();
+                      $.each(data, function(index, pelabuhanObj){
+                        $('#Pelabuhan').append(
+                          '<input type="checkbox" name="pelabuhan[]" value="'+pelabuhanObj.id+'"> '+pelabuhanObj.name+ '<br>'
+                        );
+                      });
+                    });
                   });
                 </script>
-                <br><br>
         </div>
     </div>
+
 
     {{-- total import end ekspor --}}
     <div class="row">

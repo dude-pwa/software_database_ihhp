@@ -13,18 +13,20 @@ use App\Country;
 class PagesController extends Controller
 {
     public function index($komoditi = null){
-    		$kblicodes = Kblicode::groupBy('kblicode')->lists('kblicode', 'kblicode');
+            $kblicodes = Kblicode::groupBy('kblicode')->lists('kblicode', 'kblicode');
 
-	    	return view('pages.index', compact('kblicodes'));	
+            return view('pages.index', compact('kblicodes'));   
     }
     public function filterKomoditi(Request $request){
-    		$kblicodes = Kblicode::groupBy('kblicode')->lists('kblicode', 'kblicode');
+            $kblicodes = Kblicode::groupBy('kblicode')->lists('kblicode', 'kblicode');
 
             // mengambil parameter
             $getkbli = $request->get('kbli');
             $gettahun = $request->get('tahun');
             $getnegara = $request->get('negara');
             $getpelabuhan = $request->get('pelabuhan');
+            $getbenua = $request->get('benua');
+            $getprovinsi = $request->get('provinsi');
             
             if($getkbli!=null){
                 $hscode = Kblicode::where('kblicode', $getkbli)->get();
@@ -67,11 +69,16 @@ class PagesController extends Controller
             $import_tahun_all = Import::whereIn('hscode', $condition)->groupBy('tahun')->get();
             $import_negara_all = Import::whereIn('hscode', $condition)->groupBy('nama_negara')->get();
             $import_pelabuhan_all = Import::whereIn('hscode', $condition)->groupBy('nama_pelabuhan')->get();
+            $import_benua_all = Import::whereIn('hscode', $condition)->groupBy('benua')->get();
+            $import_provinsi_all = Import::whereIn('hscode', $condition)->groupBy('provinsi')->get();
 
             // fungsi select tahun dan negara dari data export
             $export_tahun_all = Export::whereIn('hscode', $condition)->groupBy('tahun')->get();
             $export_negara_all = Export::whereIn('hscode', $condition)->groupBy('nama_negara')->get();
             $export_pelabuhan_all = Export::whereIn('hscode', $condition)->groupBy('nama_pelabuhan')->get();
+            $export_benua_all = Export::whereIn('hscode', $condition)->groupBy('benua')->get();
+            $export_provinsi_all = Export::whereIn('hscode', $condition)->groupBy('provinsi')->get();
+
 
             //tahun array
             $tahun_array = array();            
@@ -117,6 +124,33 @@ class PagesController extends Controller
               }
               ksort($pelabuhanArray);
 
+              // benuaArray with key => value
+            $benuaArray = [];
+                foreach ($import_benua_all as $import_benua){
+                    if(!in_array($import_benua->benua, $benuaArray)){
+                        array_push($benuaArray, $import_benua->benua);
+                    }
+                }
+                foreach ($export_benua_all as $export_benua){
+                    if(!in_array($export_benua->benua, $benuaArray)){
+                        array_push($benuaArray, $export_benua->benua);
+                    }
+                }
+              ksort($benuaArray);
+
+            // benuaArray with key => value
+            $provinsiArray = [];
+                foreach ($import_provinsi_all as $imp_provinsi){
+                    if(!in_array($imp_provinsi->provinsi, $provinsiArray)){
+                        array_push($provinsiArray, $imp_provinsi->provinsi);
+                    }
+                }
+                foreach ($export_provinsi_all as $export_provinsi){
+                    if(!in_array($export_provinsi->provinsi, $provinsiArray)){
+                        array_push($provinsiArray, $export_provinsi->provinsi);
+                    }
+                }
+              ksort($provinsiArray);
 
             // paginate
             $imports = $imports->get();
@@ -128,7 +162,8 @@ class PagesController extends Controller
             $neto_export = $exports->sum('berat_bersih');
             $value_export = $exports->sum('nilai');
 
-	    	return view('pages.filter', compact('kblicodes', 'getkbli', 'imports', 'neto_import', 'value_import', 'import_tahun_all', 'import_negara_all', 'exports', 'export_tahun_all', 'export_negara_all', 'neto_export', 'value_export', 'tahun_array', 'negaraArray', 'pelabuhanArray', 'gettahun', 'getnegara','getpelabuhan'));	
+            // sort($condition);
+            return view('pages.filter', compact('kblicodes', 'getkbli', 'imports', 'neto_import', 'value_import', 'import_tahun_all', 'import_negara_all', 'exports', 'export_tahun_all', 'export_negara_all', 'neto_export', 'value_export', 'tahun_array','negaraArray', 'pelabuhanArray', 'gettahun', 'getnegara','getpelabuhan', 'benuaArray', 'getbenua', 'provinsiArray', 'getprovinsi', 'code'));   
     }
     public function filterImport($kbli=null, $hs=null, $th=null, $cn=null){
             $kblicodes = Kblicode::groupBy('kblicode')->lists('kblicode', 'kblicode');
