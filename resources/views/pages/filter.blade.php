@@ -29,7 +29,7 @@
                     [
                         'placeholder' => $komoditi_default,
                         'id'=>'pilih_data_komoditi',
-                        'onchange'=>"window.open('http://localhost:8080/filter/'+this.options[ this.selectedIndex ].value, '_self')"
+                        'onchange'=>"window.open('http://localhost/filter/'+this.options[ this.selectedIndex ].value, '_self')"
                     ]); !!} --}}
               <div class="panel-body panel-filter" id="filter">
                 <div class="col-md-12 col-md-offset-0">
@@ -37,7 +37,7 @@
                 {!! Form::select('kblicode', $kblicodes, null, array('class'=>'', 
                     'placeholder'=>$kbli_default, 
                     'id'=>'kbli',
-                    'onchange'=>"window.open('http://localhost:8080/filter?kbli='+this.options[ this.selectedIndex ].value, '_self')"
+                    'onchange'=>"window.open('http://localhost/filter?kbli='+this.options[ this.selectedIndex ].value, '_self')"
                     )) !!}
                 </div>
 
@@ -211,7 +211,7 @@
                       // $("#AsiaCheck").change(function(){
                         // alert("Asia");
                         // if(this.checked){
-                          // alert("http://localhost:8080/filter?kbli="+{{$kbli_default}}+"&benua[]=Asia");
+                          // alert("http://localhost/filter?kbli="+{{$kbli_default}}+"&benua[]=Asia");
                       //   }
                       // });
                   });
