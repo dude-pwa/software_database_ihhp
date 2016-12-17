@@ -68,6 +68,10 @@ Route::get('/ajax-negara', function(Request $request){
 	    $negaraGroup[] = ['id'=>$export_negara->kode_negara, 'name'=>$export_negara->nama_negara];
 	  }
 	}
+
+	$negaraGroup = collect($negaraGroup);	// convert array to collection
+	$negaraGroup = $negaraGroup->unique('id');	// remove duplicate value in collection by id
+	$negaraGroup = $negaraGroup->toArray(); // convert back to array
 	ksort($negaraGroup);
 
 	return Response::json($negaraGroup);
@@ -114,6 +118,9 @@ Route::get('/ajax-provinsi', function(Request $request){
 	    $pelabuhanGroup[] = ['id'=>$export_pelabuhan->kode_pelabuhan, 'name'=>$export_pelabuhan->nama_pelabuhan];
 	  }
 	}
+	$pelabuhanGroup = collect($pelabuhanGroup);
+	$pelabuhanGroup = $pelabuhanGroup->unique('id');
+	$pelabuhanGroup = $pelabuhanGroup->toArray();
 	ksort($pelabuhanGroup);
 
 	return Response::json($pelabuhanGroup);

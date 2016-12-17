@@ -29,7 +29,7 @@
                     [
                         'placeholder' => $komoditi_default,
                         'id'=>'pilih_data_komoditi',
-                        'onchange'=>"window.open('http://localhost/filter/'+this.options[ this.selectedIndex ].value, '_self')"
+                        'onchange'=>"window.open('http://localhost:8080/filter/'+this.options[ this.selectedIndex ].value, '_self')"
                     ]); !!} --}}
               <div class="panel-body panel-filter" id="filter">
                 <div class="col-md-12 col-md-offset-0">
@@ -37,7 +37,7 @@
                 {!! Form::select('kblicode', $kblicodes, null, array('class'=>'', 
                     'placeholder'=>$kbli_default, 
                     'id'=>'kbli',
-                    'onchange'=>"window.open('http://localhost/filter?kbli='+this.options[ this.selectedIndex ].value, '_self')"
+                    'onchange'=>"window.open('http://localhost:8080/filter?kbli='+this.options[ this.selectedIndex ].value, '_self')"
                     )) !!}
                 </div>
 
@@ -62,8 +62,6 @@
                               checked="checked" 
                             @endif
                           @endforeach
-                        @else
-                        checked="" 
                         @endif
                       > {{$tahun}} <br> 
                     @endforeach
@@ -87,8 +85,6 @@
                               checked="checked" 
                             @endif
                           @endforeach
-                        @else
-                        checked="" 
                         @endif
                       > {{$benua}} <br> 
                     @endforeach
@@ -112,8 +108,6 @@
                               checked="checked" 
                             @endif
                           @endforeach
-                        @else
-                        checked="" 
                         @endif
                       > {{$provinsi}} <br> 
                     @endforeach
@@ -140,8 +134,6 @@
                                   checked="checked" 
                                 @endif
                               @endforeach
-                            @else
-                              checked="" 
                             @endif
                           > {{$key}} <br> 
                         @endforeach
@@ -168,8 +160,6 @@
                                   checked="checked" 
                                 @endif
                               @endforeach
-                            @else
-                            checked="" 
                             @endif
                           > {{$key}} <br> 
                         @endforeach
@@ -211,7 +201,7 @@
                       // $("#AsiaCheck").change(function(){
                         // alert("Asia");
                         // if(this.checked){
-                          // alert("http://localhost/filter?kbli="+{{$kbli_default}}+"&benua[]=Asia");
+                          // alert("http://localhost:8080/filter?kbli="+{{$kbli_default}}+"&benua[]=Asia");
                       //   }
                       // });
                   });
@@ -241,6 +231,7 @@
                     $("#prov_checkbox").find('input[type=checkbox]').prop('checked', true);      
                   });
 
+                  // --------------------------------------------------------------------------------------
 
                   $("#filterNegara").click(function(e){
                     // alert("Asia");
@@ -294,7 +285,7 @@
                         provinsi.push($(this).val());
                       }
                     });
-                    
+
                     // console.log(provinsi);
 
                     $.get('/ajax-provinsi?kbli='+{{$kbli_default}}+'&provinsi='+provinsi, function(data){
