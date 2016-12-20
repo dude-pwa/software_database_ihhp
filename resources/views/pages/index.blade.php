@@ -10,23 +10,28 @@
 <div class="container">
     <div class="row">
         <div class="panel panel-success">
-            <h1 class="panel-heading">Filter Data Komoditi</h1>
+            <h1 class="panel-heading">Filter Data dan Grafik Komoditi</h1>
             <br>
             &nbsp;&nbsp;&nbsp;&nbsp;
             {{-- {!! Form::select('pilih_data_komoditi', ['export' => 'Export', 'import' => 'Import'], null, 
                 [
                     'placeholder' => 'Pilih Data Komoditi',
                     'id'=>'pilih_data_komoditi',
-                    'onchange'=>"window.open('http://localhost:8080/filter/'+this.options[ this.selectedIndex ].value, '_self')"
+                    'onchange'=>"window.open('http://localhost/filter/'+this.options[ this.selectedIndex ].value, '_self')"
                 ]); !!} --}}
 
-            {!! Form::select('kblicode', $kblicodes, null, array('class'=>'', 
+            <!-- select filter combobox -->
+            <!-- {!! Form::select('kblicode', $kblicodes, null, array('class'=>'', 
                 'placeholder'=>'Pilih Kode KBLI', 
-                'id'=>'kbli')) !!}
+                'id'=>'kbli')) !!} -->
+            
+            <div class="col-md-3">
+                <a href="/filter" class="btn btn-danger">Filter Data</a>
+            </div>
 
             <br><br>
             <div class="col-md-3">
-                <a href="/charts" class="btn btn-info">Lihat Grafik</a>
+                <a href="/charts" class="btn btn-default">Lihat Grafik</a>
             </div>
 
             <script type="text/javascript">

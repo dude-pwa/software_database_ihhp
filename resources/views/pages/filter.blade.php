@@ -29,7 +29,7 @@
                     [
                         'placeholder' => $komoditi_default,
                         'id'=>'pilih_data_komoditi',
-                        'onchange'=>"window.open('http://localhost:8080/filter/'+this.options[ this.selectedIndex ].value, '_self')"
+                        'onchange'=>"window.open('http://localhost/filter/'+this.options[ this.selectedIndex ].value, '_self')"
                     ]); !!} --}}
               <div class="panel-body panel-filter" id="filter">
                 <div class="col-md-12 col-md-offset-0">
@@ -37,7 +37,7 @@
                 {!! Form::select('kblicode', $kblicodes, null, array('class'=>'', 
                     'placeholder'=>$kbli_default, 
                     'id'=>'kbli',
-                    'onchange'=>"window.open('http://localhost:8080/filter?kbli='+this.options[ this.selectedIndex ].value, '_self')"
+                    'onchange'=>"window.open('http://localhost/filter?kbli='+this.options[ this.selectedIndex ].value, '_self')"
                     )) !!}
                 </div>
 
@@ -92,29 +92,6 @@
                     <a href="#" class="btn btn-xs btn-success" id="filterNegara">Filter Negara</a>
                   </div>
 
-                  <div class="col-md-3 col-md-offset-0 btn-xs" id="prov_checkbox" style="max-height: 400px; width: 210px; overflow: auto">
-                    <b>Provinsi:</b> <br> 
-                    <a class="btn btn-xs" id="uncheck_prov">Uncheck All</a> / 
-                    <a class="btn btn-xs" id="check_prov">Check All</a>
-                    <br>
-                    @foreach ($provinsiArray as $provinsi) 
-                      <input 
-                        type="checkbox" 
-                        name="provinsi[]" 
-                        value="{{$provinsi}}"
-                        @if($getprovinsi != null)
-                          @foreach($getprovinsi as $provinsi_param)
-                            @if($provinsi_param == $provinsi)
-                              checked="checked" 
-                            @endif
-                          @endforeach
-                        @endif
-                      > {{$provinsi}} <br> 
-                    @endforeach
-                    <br>
-                    <a href="#" class="btn btn-xs btn-success" id="filterProvinsi">Filter Provinsi</a>
-                  </div>
-
                   <div class="col-md-3 col-md-offset-0 btn-xs" id="negara_checkbox" style="width: 210px;">
                     <b>Negara:</b> <br>
                     <a class="btn btn-xs" id="uncheck_negara">Uncheck All</a> / 
@@ -140,6 +117,29 @@
                         <!-- <input type="checkbox" name="negara[]" value=""> -->
                       </div>
                     </div>
+                  </div>
+
+                  <div class="col-md-3 col-md-offset-0 btn-xs" id="prov_checkbox" style="max-height: 400px; width: 210px; overflow: auto">
+                    <b>Provinsi:</b> <br> 
+                    <a class="btn btn-xs" id="uncheck_prov">Uncheck All</a> / 
+                    <a class="btn btn-xs" id="check_prov">Check All</a>
+                    <br>
+                    @foreach ($provinsiArray as $provinsi) 
+                      <input 
+                        type="checkbox" 
+                        name="provinsi[]" 
+                        value="{{$provinsi}}"
+                        @if($getprovinsi != null)
+                          @foreach($getprovinsi as $provinsi_param)
+                            @if($provinsi_param == $provinsi)
+                              checked="checked" 
+                            @endif
+                          @endforeach
+                        @endif
+                      > {{$provinsi}} <br> 
+                    @endforeach
+                    <br>
+                    <a href="#" class="btn btn-xs btn-success" id="filterProvinsi">Filter Provinsi</a>
                   </div>
 
                    <div class="col-md-3 col-md-offset-0 btn-xs" id="pelabuhan_checkbox" style="width:200px;">
@@ -201,7 +201,7 @@
                       // $("#AsiaCheck").change(function(){
                         // alert("Asia");
                         // if(this.checked){
-                          // alert("http://localhost:8080/filter?kbli="+{{$kbli_default}}+"&benua[]=Asia");
+                          // alert("http://localhost/filter?kbli="+{{$kbli_default}}+"&benua[]=Asia");
                       //   }
                       // });
                   });
