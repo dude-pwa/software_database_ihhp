@@ -7,6 +7,7 @@
 	<link rel="stylesheet" href="{{URL::to('/src/css/custom.css')}}">
 	<script src="{{URL::to('/src/js/jquery-3.1.0.min.js')}}"></script>
 	<script src="{{URL::to('/src/js/bootstrap.min.js')}}"></script>
+	<script src="{{URL::to('/src/js/gchart.js')}}"></script>
 	
 
 	{{-- navigasi --}}

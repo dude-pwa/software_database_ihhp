@@ -161,7 +161,7 @@ class PagesController extends Controller
                         array_push($benuaArray, $export_benua->benua);
                     }
                 }
-              ksort($benuaArray);
+              sort($benuaArray);
 
             // benuaArray with key => value
             $provinsiArray = [];
@@ -175,7 +175,7 @@ class PagesController extends Controller
                         array_push($provinsiArray, $export_provinsi->provinsi);
                     }
                 }
-              ksort($provinsiArray);
+              sort($provinsiArray);
 
             // // paginate
             // $imports = $imports->get();

@@ -24,6 +24,11 @@
                 'placeholder'=>'Pilih Kode KBLI', 
                 'id'=>'kbli')) !!}
 
+            <br><br>
+            <div class="col-md-3">
+                <a href="/charts" class="btn btn-info">Lihat Grafik</a>
+            </div>
+
             <script type="text/javascript">
              var urlmenu = document.getElementById( 'kbli' );
              urlmenu.onchange = function() {

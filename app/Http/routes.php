@@ -190,6 +190,9 @@ Route::delete('/imports/{id}', [
 Route::get('imports/import', 'ImportsController@getImport');
 Route::post('imports/import', 'ImportsController@postImport');
 
+Route::get('/charts', 'ChartsController@index');
+Route::get('/charts/{country}', 'ChartsController@show');
+
 // pages controller
 // Route::get('/?kbli={kbli}', [
 // 	'uses'=>'PagesController@selectkbli',
