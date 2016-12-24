@@ -9,7 +9,6 @@ use App\Kblicode;
 use App\Export;
 use App\Import;
 use App\Country;
-use Khill\Lavacharts\Lavacharts;
 
 class ChartsController extends Controller
 {
@@ -205,25 +204,7 @@ class ChartsController extends Controller
     		);
 	    }
 
-	    // dd($chartRowImport);
-
-	    // lava chart is not used. now using googlechart
-     //    $lavaImport = new Lavacharts();
-     //    $chartImport = $lavaImport->DataTable();
-     //    $chartImport->addStringColumn('Tahun')
-     //    		->addNumberColumn('Value')
-     //    		->addNumberColumn('Netto');
-	    //         // ->addRow(['2011',  68, 65]);
-
-	    // for($i=0; $i<count($chartRowImport); $i++){
-	    // 	$chartImport->addRow($chartRowImport[$i]);
-	    // }
-
-	    // dd($chartImport);
-
-	    // $lavaImport->ColumnChart('Value', $chartImport, [
-	    // 	'title'=> 'Grafik Nilai dan Berat Komoditi Import'
-	    // ]);
+	    
 
 
 	    $chartRowExport = [];
