@@ -169,13 +169,21 @@
 
                   <div class="col-md-1 col-md-offset-0">
                     <b>Action: </b><br><br>
-                    {!!Form::submit('Filter', ['class'=>'btn btn-primary'])!!}
+                    {!!Form::submit('Filter', ['class'=>'btn btn-primary', 'id'=>'SubmitFilter'])!!}
                   </div>
                 {!!Form::close()!!}
 
               </div>
 
                 <script type="text/javascript">
+                // validation tahun filter
+                  $("#SubmitFilter").click(function(e){
+                    if($("#tahun_checkbox").find('input[type=checkbox]:checked').length < 1){
+                      e.preventDefault();
+                      alert("Parameter Tahun Harus Dipilih");
+                    }
+                  });
+
                 // fungsi unchek tahun
                   $("#uncheck_tahun").click(function(){
                     $("#tahun_checkbox").find('input[type=checkbox]:checked').prop('checked', false);      
@@ -308,13 +316,28 @@
         <div class="panel-heading"><h4>Total Import KBLI {{$getkbli}}</h4></div>
         <table class="table table-striped">
           <tr>
+            <th>Tahun</th>
             <th>Total Berat Bersih</th>
             <th>Total Nilai (USD)</th>
           </tr>
+          @for($i=0; $i<count($gettahun); $i++)
+            <?php 
+              if($getnegara != null && $getpelabuhan != null){
+                $importsByTahun = \App\Import::where('tahun', $gettahun[$i])->whereIn('hscode', $condition)->whereIn('kode_negara', $getnegara)->whereIn('kode_pelabuhan', $getpelabuhan)->get();
+              }elseif($getnegara != null && $getpelabuhan ==null){
+                $importsByTahun = \App\Import::where('tahun', $gettahun[$i])->whereIn('hscode', $condition)->whereIn('kode_negara', $getnegara)->get();
+              }elseif($getnegara == null && $getpelabuhan !=null){
+                $importsByTahun = \App\Import::where('tahun', $gettahun[$i])->whereIn('hscode', $condition)->whereIn('kode_pelabuhan', $getpelabuhan)->get();
+              }
+            ?>
           <tr>
-            <td>{{$neto_import}}</td>
-            <td>{{$value_import}}</td>
+              <td>{{$gettahun[$i]}}</td>
+              <td>{{$importsByTahun->sum('berat_bersih')}}</td>
+              <td>{{$importsByTahun->sum('nilai')}}</td>
+              <!-- <td>{{$neto_import}}</td> -->
+              <!-- <td>{{$value_import}}</td> -->
           </tr>
+          @endfor
         </table>
       </div>
     </div>
@@ -324,13 +347,28 @@
         <div class="panel-heading"><h4>Total Export KBLI {{$getkbli}}</h4></div>
         <table class="table table-striped">
           <tr>
+            <th>Tahun</th>
             <th>Total Berat Bersih</th>
             <th>Total Nilai (USD)</th>
           </tr>
+          @for($i=0; $i<count($gettahun); $i++)
+            <?php 
+              if($getnegara != null && $getpelabuhan != null){
+                $exportsByTahun = \App\Export::where('tahun', $gettahun[$i])->whereIn('hscode', $condition)->whereIn('kode_negara', $getnegara)->whereIn('kode_pelabuhan', $getpelabuhan)->get();
+              }elseif($getnegara != null && $getpelabuhan ==null){
+                $exportsByTahun = \App\Export::where('tahun', $gettahun[$i])->whereIn('hscode', $condition)->whereIn('kode_negara', $getnegara)->get();
+              }elseif($getnegara == null && $getpelabuhan !=null){
+                $exportsByTahun = \App\Export::where('tahun', $gettahun[$i])->whereIn('hscode', $condition)->whereIn('kode_pelabuhan', $getpelabuhan)->get();
+              }
+            ?>
           <tr>
-            <td>{{$neto_export}}</td>
-            <td>{{$value_export}}</td>
+              <td>{{$gettahun[$i]}}</td>
+              <td>{{$exportsByTahun->sum('berat_bersih')}}</td>
+              <td>{{$exportsByTahun->sum('nilai')}}</td>
+              <!-- <td>{{$neto_import}}</td> -->
+              <!-- <td>{{$value_import}}</td> -->
           </tr>
+          @endfor
         </table>
       </div>
     </div>

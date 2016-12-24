@@ -188,7 +188,7 @@ class PagesController extends Controller
             // $value_export = $exports->sum('nilai');
 
             // sort($condition);
-            return view('pages.filter', compact('kblicodes', 'getkbli', 'imports', 'neto_import', 'value_import', 'import_tahun_all', 'import_negara_all', 'exports', 'export_tahun_all', 'export_negara_all', 'neto_export', 'value_export', 'tahun_array','negaraArray', 'pelabuhanArray', 'gettahun', 'getnegara','getpelabuhan', 'benuaArray', 'getbenua', 'provinsiArray', 'getprovinsi', 'code'));   
+            return view('pages.filter', compact('kblicodes', 'getkbli', 'imports', 'neto_import', 'value_import', 'import_tahun_all', 'import_negara_all', 'exports', 'export_tahun_all', 'export_negara_all', 'neto_export', 'value_export', 'tahun_array','negaraArray', 'pelabuhanArray', 'gettahun', 'getnegara','getpelabuhan', 'benuaArray', 'getbenua', 'provinsiArray', 'getprovinsi', 'code', 'condition'));   
     }
     public function filterImport($kbli=null, $hs=null, $th=null, $cn=null){
             $kblicodes = Kblicode::groupBy('kblicode')->lists('kblicode', 'kblicode');
