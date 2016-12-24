@@ -150,7 +150,6 @@ return [
 
         Collective\Html\HtmlServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
-        Khill\Lavacharts\Laravel\LavachartsServiceProvider::class,
 
         /*
          * Application Service Providers...

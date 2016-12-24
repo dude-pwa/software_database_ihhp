@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8e3c4fe9e53edf7d065f5dfc2f744322",
-    "content-hash": "93685772641467f584c9ea115963a79d",
+    "hash": "1164132b9d1b22c61e91a813676a670e",
+    "content-hash": "c1624af4f6f17ae9d66f3ccefaadc2a4",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -707,95 +707,6 @@
                 "tokenizer"
             ],
             "time": "2016-12-07 09:37:55"
-        },
-        {
-            "name": "khill/lavacharts",
-            "version": "3.0.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/kevinkhill/lavacharts.git",
-                "reference": "c95cf815948db511c9c44270d50f7bc37861d81d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/kevinkhill/lavacharts/zipball/c95cf815948db511c9c44270d50f7bc37861d81d",
-                "reference": "c95cf815948db511c9c44270d50f7bc37861d81d",
-                "shasum": ""
-            },
-            "require": {
-                "nesbot/carbon": "~1.14",
-                "php": ">=5.4.0"
-            },
-            "require-dev": {
-                "mockery/mockery": "~0.9",
-                "mybuilder/phpunit-accelerator": "~1.1",
-                "phpunit/phpunit": "~4.5",
-                "satooshi/php-coveralls": "~1.0",
-                "squizlabs/php_codesniffer": "~2.5"
-            },
-            "suggest": {
-                "khill/datatableplus": "Adds extra features to DataTables such as csv and laravel collection parsing."
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Khill\\Lavacharts\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Kevin Hill",
-                    "email": "kevinkhill@gmail.com",
-                    "role": "Creator"
-                },
-                {
-                    "name": "deringer",
-                    "homepage": "https://github.com/deringer",
-                    "role": "Contributor"
-                },
-                {
-                    "name": "stevebauman",
-                    "homepage": "https://github.com/stevebauman",
-                    "role": "Contributor"
-                },
-                {
-                    "name": "rajivseelam",
-                    "homepage": "https://github.com/rajivseelam",
-                    "role": "Contributor"
-                },
-                {
-                    "name": "tobias-kuendig",
-                    "homepage": "https://github.com/tobias-kuendig",
-                    "role": "Contributor"
-                },
-                {
-                    "name": "Stonos",
-                    "homepage": "https://github.com/Stonos",
-                    "role": "Contributor"
-                },
-                {
-                    "name": "MicahKV",
-                    "email": "micah138@yahoo.com",
-                    "role": "Contributor"
-                },
-                {
-                    "name": "SendDerek",
-                    "homepage": "https://github.com/SendDerek",
-                    "role": "Contributor"
-                }
-            ],
-            "description": "PHP wrapper library for the Google Chart API",
-            "homepage": "http://lavacharts.com",
-            "keywords": [
-                "charts",
-                "google",
-                "graphs"
-            ],
-            "time": "2016-04-28 14:43:39"
         },
         {
             "name": "laravel/framework",
@@ -2708,16 +2619,16 @@
         },
         {
             "name": "mockery/mockery",
-            "version": "0.9.6",
+            "version": "0.9.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/padraic/mockery.git",
-                "reference": "65d4ca18e15cb02eeb1e5336f884e46b9b905be0"
+                "reference": "4de7969f4664da3cef1ccd83866c9f59378c3371"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/padraic/mockery/zipball/65d4ca18e15cb02eeb1e5336f884e46b9b905be0",
-                "reference": "65d4ca18e15cb02eeb1e5336f884e46b9b905be0",
+                "url": "https://api.github.com/repos/padraic/mockery/zipball/4de7969f4664da3cef1ccd83866c9f59378c3371",
+                "reference": "4de7969f4664da3cef1ccd83866c9f59378c3371",
                 "shasum": ""
             },
             "require": {
@@ -2769,7 +2680,7 @@
                 "test double",
                 "testing"
             ],
-            "time": "2016-09-30 12:09:40"
+            "time": "2016-12-19 14:50:55"
         },
         {
             "name": "phpdocumentor/reflection-common",
