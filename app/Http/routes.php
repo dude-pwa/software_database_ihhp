@@ -23,6 +23,9 @@ Route::get('/filter', [
 	'uses'=>'PagesController@filterKomoditi',
 	'as'=>'filter.komoditi'
 	]);
+// download excell PagesControllers
+Route::post('/filter/result/import', 'PagesController@importResult');
+Route::post('/filter/result/export', 'PagesController@exportResult');
 // Route::get('/filter/import/{kbli?}/{hs?}/{th?}/{cn?}', [
 // 	'uses'=>'PagesController@filterImport',
 // 	'as'=>'filter.import'

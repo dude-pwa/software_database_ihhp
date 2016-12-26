@@ -10,6 +10,7 @@ use App\Export;
 use App\Import;
 use App\Country;
 use Exception;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PagesController extends Controller
 {
@@ -245,5 +246,61 @@ class PagesController extends Controller
             }
 
             return view('pages.filter', compact('kblicodes', 'kbli', 'hscode', 'hs', 'tahun', 'th', 'negara', 'cn', 'imports'));    
+    }
+
+    public function importResult(Request $request){
+        $tahun = $request->input('tahun');
+        $netto = $request->input('total_netto');
+        $value = $request->input('total_value');
+
+        $importResult[] = ['tahun', 'netto', 'value'];
+        for($i=0; $i<count($tahun); $i++){
+            $importResult[] = [$tahun[$i], $netto[$i], $value[$i]];
+        }
+
+        // dd($tahun, $netto, $value, $importResult);
+
+        Excel::create('import_details', function($excel) use ($importResult) {
+
+            // Set the spreadsheet title, creator, and description
+            $excel->setTitle('Detail Import Per Tahun');
+            $excel->setCreator('Admin')->setCompany('Kementrian Perindustrian');
+            $excel->setDescription('Export');
+
+            // Build the spreadsheet, passing in the payments array
+            $excel->sheet('sheet1', function($sheet) use ($importResult) {
+                $sheet->fromArray($importResult, null, 'A1', false, false);
+                // $sheet->fromArray($importResult);
+            });
+
+        })->download('xlsx');
+    }
+
+    public function exportResult(Request $request){
+        $tahun = $request->input('tahun');
+        $netto = $request->input('total_netto');
+        $value = $request->input('total_value');
+
+        $exportResult[] = ['tahun', 'netto', 'value'];
+        for($i=0; $i<count($tahun); $i++){
+            $exportResult[] = [$tahun[$i], $netto[$i], $value[$i]];
+        }
+
+        // dd($tahun, $netto, $value, $exportResult);
+
+        Excel::create('export_details', function($excel) use ($exportResult) {
+
+            // Set the spreadsheet title, creator, and description
+            $excel->setTitle('Detail Export Per Tahun');
+            $excel->setCreator('Admin')->setCompany('Kementrian Perindustrian');
+            $excel->setDescription('Export');
+
+            // Build the spreadsheet, passing in the payments array
+            $excel->sheet('sheet1', function($sheet) use ($exportResult) {
+                $sheet->fromArray($exportResult, null, 'A1', false, false);
+                // $sheet->fromArray($exportResult);
+            });
+
+        })->download('xlsx');
     }
 }

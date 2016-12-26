@@ -313,7 +313,10 @@
     {{-- total import end ekspor --}}
     <div class="row">
       <div class="panel panel-success">
-        <div class="panel-heading"><h4>Total Import KBLI {{$getkbli}}</h4></div>
+        <div class="panel-heading">
+          {!! Form::open(['url' => '/filter/result/import']) !!}
+          <h4>Total Import KBLI {{$getkbli}} &nbsp;&nbsp;&nbsp;{!! Form::submit('Download', ['class' => 'btn btn-default']) !!}</h4>
+          </div>
         <table class="table table-striped">
           <tr>
             <th>Tahun</th>
@@ -337,14 +340,23 @@
               <!-- <td>{{$neto_import}}</td> -->
               <!-- <td>{{$value_import}}</td> -->
           </tr>
+            <!-- SEND TO @importResult, Controller -->
+            {!! Form::hidden('tahun[]', $gettahun[$i]) !!} 
+            {!! Form::hidden('total_netto[]', $importsByTahun->sum('berat_bersih')) !!} 
+            {!! Form::hidden('total_value[]', $importsByTahun->sum('nilai')) !!} 
+            <!-- <br> -->
           @endfor
         </table>
+          {!! Form::close() !!}
       </div>
     </div>
 
     <div class="row">
       <div class="panel panel-success">
-        <div class="panel-heading"><h4>Total Export KBLI {{$getkbli}}</h4></div>
+        <div class="panel-heading">
+          {!! Form::open(['url' => '/filter/result/export']) !!}
+          <h4>Total Export KBLI {{$getkbli}} &nbsp;&nbsp;&nbsp;{!! Form::submit('Download', ['class' => 'btn btn-default']) !!}</h4>
+          </div>
         <table class="table table-striped">
           <tr>
             <th>Tahun</th>
@@ -368,10 +380,25 @@
               <!-- <td>{{$neto_import}}</td> -->
               <!-- <td>{{$value_import}}</td> -->
           </tr>
+           <!-- SEND TO @importResult, Controller -->
+            {!! Form::hidden('tahun[]', $gettahun[$i]) !!} 
+            {!! Form::hidden('total_netto[]', $exportsByTahun->sum('berat_bersih')) !!} 
+            {!! Form::hidden('total_value[]', $exportsByTahun->sum('nilai')) !!} 
+            <!-- <br> -->
           @endfor
         </table>
+          {!! Form::close() !!}
       </div>
     </div>
+
+    <script>
+      $("#ImportResultButton").click(function(){
+        $.ajax("/filter/result/import", {
+          type: 'POST',
+          data: {result: <?php $importResultArray ?>}
+        });
+      });
+    </script>
 
     {{-- select * import filter --}}
     @if($getkbli!=null)
