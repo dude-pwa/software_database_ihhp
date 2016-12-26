@@ -16,7 +16,35 @@ class PagesController extends Controller
     public function index($komoditi = null){
             $kblicodes = Kblicode::groupBy('kblicode')->lists('kblicode', 'kblicode');
 
-            return view('pages.index', compact('kblicodes'));   
+            // FUNGSI CHECK NONE REGISTERED HSCODE
+            $notifKblicodes = Kblicode::get();
+            // dd($notifKblicodes);
+
+            $hscodeImport = Import::select('hscode')->groupBy('hscode')->get();
+            $hscodeExport = Export::select('hscode')->groupBy('hscode')->get();
+
+            $hscodeAll = array();
+            foreach ($hscodeImport as $import){
+                if(!in_array($import->hscode, $hscodeAll)){
+                        array_push($hscodeAll, $import->hscode);
+                    }
+                }
+            foreach ($hscodeExport as $export){
+                if(!in_array($export->hscode, $hscodeAll)){
+                    array_push($hscodeAll, $export->hscode);
+                }
+            }
+
+            $hscodeBlank = [];
+            for($i=0; $i<count($hscodeAll); $i++){
+                if($notifKblicodes->contains('hscode', $hscodeAll[$i]) == false){
+                    array_push($hscodeBlank, $hscodeAll[$i]);
+                }
+            }
+
+            // dd($hscodeBlank, $hscodeAll);
+
+            return view('pages.index', compact('kblicodes', 'hscodeBlank'));   
     }
     public function filterKomoditi(Request $request){
             try{

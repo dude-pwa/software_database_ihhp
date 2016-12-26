@@ -9,6 +9,47 @@
 </style> --}}
 <div class="container">
     <div class="row">
+        <div class="pull-right">
+            @if(count($hscodeBlank) > 0)
+                <div id="notifikasiHeader">
+                <h1 class="btn btn-xs btn-danger">
+                    <b>({{ count($hscodeBlank) }}) Kode HS Belum Terdaftar</b>
+                </h1>
+                </div>
+                <div id="notifikasiList" style="position: absolute; max-height: 400px; width: 130px; overflow: auto">
+                    <table class="table small">
+                    @for($i=0; $i<count($hscodeBlank); $i++)
+                        <tr style="background-color: #fff">
+                        <td align="right">
+                            {{ $hscodeBlank[$i] }}
+                        </td>
+                        </tr>
+                    @endfor
+                    </table>
+                </div>
+            @else
+                <h1 class="btn btn-xs btn-default">
+                    <b>Semua Kode HS Sudah Terdaftar</b>
+                </h1>
+            @endif
+
+            <script>
+                // NOTIFIKASI
+                $("#notifikasiList").hide();
+
+                $("#notifikasiHeader").click(function(e){
+                    e.stopPropagation();
+                    $("#notifikasiList").toggle(1000);
+                });
+
+                // NOTIFIKASI HIDE ON CLICK OTHER PAGE ELEMENTS
+                // $(document).click(function(){
+                //     $("#notifikasiList").hide(1000);
+                // });                
+            </script>
+        </div>
+    </div>
+    <div class="row">
         <div class="panel panel-success">
             <h1 class="panel-heading">Filter Data dan Grafik Komoditi</h1>
             <br>
