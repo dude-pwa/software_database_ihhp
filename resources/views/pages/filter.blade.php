@@ -92,7 +92,7 @@
                     <a href="#" class="btn btn-xs btn-success" id="filterNegara">Filter Negara</a>
                   </div>
 
-                  <div class="col-md-3 col-md-offset-0 btn-xs" id="negara_checkbox" style="width: 210px;">
+                  <div class="col-md-3 col-md-offset-0 btn-xs mandatory_checkbox" id="negara_checkbox" style="width: 210px;">
                     <b>Negara:</b> <br>
                     <a class="btn btn-xs" id="uncheck_negara">Uncheck All</a> / 
                     <a class="btn btn-xs" id="check_negara">Check All</a>
@@ -142,7 +142,7 @@
                     <a href="#" class="btn btn-xs btn-success" id="filterProvinsi">Filter Provinsi</a>
                   </div>
 
-                   <div class="col-md-3 col-md-offset-0 btn-xs" id="pelabuhan_checkbox" style="width:200px;">
+                   <div class="col-md-3 col-md-offset-0 btn-xs mandatory_checkbox" id="pelabuhan_checkbox" style="width:200px;">
                     <b>Pelabuhan:</b> <br>
                     <a class="btn btn-xs" id="uncheck_pelabuhan">Uncheck All</a> / 
                     <a class="btn btn-xs" id="check_pelabuhan">Check All</a>
@@ -181,6 +181,10 @@
                     if($("#tahun_checkbox").find('input[type=checkbox]:checked').length < 1){
                       e.preventDefault();
                       alert("Parameter Tahun Harus Dipilih");
+                    }
+                    if($(".mandatory_checkbox").find('input[type=checkbox]:checked').length < 1){
+                      e.preventDefault();
+                      alert("Item Check Negara Atau Pelabuhan Harus Dipilih Minimal 1 Item");
                     }
                   });
 
