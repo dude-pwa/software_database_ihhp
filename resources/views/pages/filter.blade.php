@@ -37,7 +37,7 @@
                 {!! Form::select('kblicode', $kblicodes, null, array('class'=>'', 
                     'placeholder'=>$kbli_default, 
                     'id'=>'kbli',
-                    'onchange'=>"window.open('http://localhost/filter?kbli='+this.options[ this.selectedIndex ].value, '_self')"
+                    'onchange'=>"window.open('/filter?kbli='+this.options[ this.selectedIndex ].value, '_self')"
                     )) !!}
                 </div>
 
